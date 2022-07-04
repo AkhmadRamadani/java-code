@@ -1,3 +1,3 @@
 class EndPointConst{
-  String login = "api/auth/login";
+  String login = "auth/login";
 }
