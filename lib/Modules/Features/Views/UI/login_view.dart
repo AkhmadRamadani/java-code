@@ -9,7 +9,7 @@ import 'package:javacode/Modules/Features/Controllers/login_controller.dart';
 import 'package:javacode/Modules/Features/Views/Components/button_components.dart';
 import 'package:javacode/Modules/Features/Views/Components/loading_components.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends GetView<LoginController>  {
   LoginView({Key? key}) : super(key: key);
 
   final LoginController loginController = Get.put(LoginController());
@@ -120,6 +120,7 @@ class LoginView extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: (){
+                                // loginController.logout();
                                 loginController.loginFunction(loginController.emailController.text, loginController.passController.text);
                               },
                               child: ButtonComponents(
@@ -155,10 +156,15 @@ class LoginView extends StatelessWidget {
                             const SizedBox(
                               height: 12,
                             ),
-                            ButtonComponents(
-                              iconPath:
-                                  assetsConst.svgPath + assetsConst.googleIcons,
-                              buttonTitle: "Masuk Menggunakan Google",
+                            GestureDetector(
+                              onTap: (){
+                                loginController.loginWithGoogle();
+                              },
+                              child: ButtonComponents(
+                                iconPath:
+                                    assetsConst.svgPath + assetsConst.googleIcons,
+                                buttonTitle: "Masuk Menggunakan Google",
+                              ),
                             ),
                             const SizedBox(
                               height: 18,
@@ -176,7 +182,7 @@ class LoginView extends StatelessWidget {
                     ],
                   ),
                 ),
-                // value.isLoading.isTrue ? LoadingComponent() : Container()
+                value.isLoading.isTrue ? LoadingComponent() : Container()
               ],
             );
           }),

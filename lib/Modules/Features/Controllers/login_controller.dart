@@ -68,4 +68,23 @@ class LoginController extends GetxController {
       Get.snackbar("Login Failed", "Periksa kembali email dan password Anda");
     }
   }
+
+  loginWithGoogle() async {
+    isLoading = true.obs;
+    LoginResponse? loginRes = await authService.loginWithGoogle();
+
+    if (loginRes != null) {
+      isLoading = false.obs;
+      update();
+      Get.to(FindLocationView());
+    } else {
+      isLoading = false.obs;
+      update();
+      // Get.snackbar("Login Failed", "Periksa kembali email dan password Anda");
+    }
+  }
+
+  logout() async{
+    await authService.logout();
+  }
 }
