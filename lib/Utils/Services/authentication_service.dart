@@ -28,7 +28,7 @@ class AuthenticationService extends NetworkService {
     final response = await post(
         super.baseUrlConst.baseUrl + endPointConst.login,
         {'email': email, 'password': password});
-
+    print(response.body);
     if (response.body['status_code'] == 200) {
       LoginResponse loginResponse = LoginResponse.fromJson(response.body);
       return loginResponse;

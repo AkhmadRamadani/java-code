@@ -15,7 +15,6 @@ class SplashView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    mainController.checkConnection();
     return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,

@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
-import 'package:javacode/Constant/Core/base_url_const.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:javacode/Modules/Features/Views/UI/find_location_view.dart';
+import 'package:javacode/Modules/Models/Hive/user_hive_model.dart' as user_hive;
+import 'package:javacode/Modules/Models/Hive/akses_hive_model.dart'
+    as akses_hive;
 import 'package:javacode/Modules/Models/login_response_model.dart';
 import 'package:javacode/Utils/Services/authentication_service.dart';
 
@@ -14,6 +16,12 @@ class LoginController extends GetxController {
   AuthenticationService authService = AuthenticationService();
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+  }
 
   showPassword() {
     print("show pass");
@@ -29,7 +37,7 @@ class LoginController extends GetxController {
   }
 
   loginFunction(String email, String password) async {
-    // Response res = get(Uri.parse("uri"));
+    var box = await Hive.openBox<user_hive.User>('user');
 
     if (email.length == 0) {
       Get.snackbar("Email Kosong", "Email wajib diisikan");
@@ -45,20 +53,37 @@ class LoginController extends GetxController {
     }
     isLoading = true.obs;
     update();
-    // http.Response res = await http.post(
-    //   Uri.parse('https://jsonplaceholder.typicode.com/albums'),
-    //   headers: <String, String>{
-    //     'Content-Type': 'application/json; charset=UTF-8',
-    //   },
-    //   body: jsonEncode(<String, String>{
-    //     'email': email,
-    //     'password': password
-    //   }),
-    // );
-
     LoginResponse? loginRes = await authService.loginRequest(email, password);
 
     if (loginRes != null) {
+      user_hive.User userData = user_hive.User();
+      userData.email = loginRes.data?.user?.email;
+      userData.foto = loginRes.data?.user?.foto;
+      userData.idUser = loginRes.data?.user?.idUser;
+      userData.isCustomer = loginRes.data?.user?.isCustomer;
+      userData.isGoogle = loginRes.data?.user?.isGoogle;
+      userData.mRolesId = loginRes.data?.user?.mRolesId;
+      userData.nama = loginRes.data?.user?.nama;
+      userData.pin = loginRes.data?.user?.pin;
+      userData.roles = loginRes.data?.user?.roles;
+      userData.token = loginRes.data?.token;
+
+      akses_hive.Akses aksesUser = akses_hive.Akses();
+      aksesUser.authAkses = loginRes.data?.user?.akses?.authAkses;
+      aksesUser.authUser = loginRes.data?.user?.akses?.authUser;
+      aksesUser.laporanCustomer = loginRes.data?.user?.akses?.laporanCustomer;
+      aksesUser.laporanMenu = loginRes.data?.user?.akses?.laporanMenu;
+      aksesUser.settingCustomer = loginRes.data?.user?.akses?.settingCustomer;
+      aksesUser.settingDiskon = loginRes.data?.user?.akses?.settingDiskon;
+      aksesUser.settingVoucher = loginRes.data?.user?.akses?.settingVoucher;
+      aksesUser.settingMenu = loginRes.data?.user?.akses?.settingMenu;
+      aksesUser.settingPromo = loginRes.data?.user?.akses?.settingPromo;
+
+      userData.akses = aksesUser;
+
+      // userData.akses = loginRes.data?.user?.akses??;
+      await box.clear();
+      await box.add(userData);
       isLoading = false.obs;
       update();
       Get.to(FindLocationView());
@@ -84,7 +109,7 @@ class LoginController extends GetxController {
     }
   }
 
-  logout() async{
+  logout() async {
     await authService.logout();
   }
 }

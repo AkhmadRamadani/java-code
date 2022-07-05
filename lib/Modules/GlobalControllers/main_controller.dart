@@ -1,12 +1,34 @@
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:javacode/Modules/Features/Views/UI/find_location_view.dart';
 import 'dart:async';
 
 import 'package:javacode/Modules/Features/Views/UI/login_view.dart';
 import 'package:javacode/Modules/Features/Views/UI/no_connection_view.dart';
+import 'package:javacode/Modules/Models/Hive/user_hive_model.dart';
 
 class MainController extends GetxController {
   RxBool isLoading = false.obs;
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    checkConnection();
+  }
+
+  checkUserLogin() async {
+    Box<User> box = await Hive.openBox<User>('user'); 
+    if(box.values.isNotEmpty){
+      Get.to(FindLocationView());
+
+    }else{
+      Get.to(LoginView());
+
+    }
+  }
+
   Future<bool> checkConnection() async {
     isLoading = true.obs;
     update();
@@ -20,7 +42,7 @@ class MainController extends GetxController {
       isLoading = false.obs;
       update();
       print('Data connection is available.');
-      Get.to(LoginView());
+      checkUserLogin();
     } else {
       isLoading = false.obs;
       update();
