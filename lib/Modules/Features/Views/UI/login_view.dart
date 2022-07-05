@@ -152,7 +152,7 @@ class LoginView extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 12,
                             ),
                             ButtonComponents(
@@ -160,7 +160,7 @@ class LoginView extends StatelessWidget {
                                   assetsConst.svgPath + assetsConst.googleIcons,
                               buttonTitle: "Masuk Menggunakan Google",
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 18,
                             ),
                             ButtonComponents(

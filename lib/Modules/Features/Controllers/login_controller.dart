@@ -9,7 +9,7 @@ import 'package:javacode/Modules/Models/login_response_model.dart';
 import 'package:javacode/Utils/Services/authentication_service.dart';
 
 class LoginController extends GetxController {
-  RxBool isPasswordShowed = false.obs;
+  RxBool isPasswordShowed = true.obs;
   RxBool isLoading = false.obs;
   AuthenticationService authService = AuthenticationService();
   TextEditingController emailController = TextEditingController();
