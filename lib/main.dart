@@ -13,10 +13,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await Hive.initFlutter();
-  
+
   Hive.registerAdapter(UserAdapter());
   Hive.registerAdapter(AksesAdapter());
-  
+
   runApp(const MyApp());
 }
 
@@ -40,9 +40,10 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
         textTheme: GoogleFonts.montserratTextTheme(
-           Theme.of(context).textTheme,
+          Theme.of(context).textTheme,
+        ),
       ),
-      ),
+      debugShowCheckedModeBanner: false,
       home: GetMaterialApp(
         home: SplashView(),
       ),

@@ -21,6 +21,7 @@ class MainController extends GetxController {
   checkUserLogin() async {
     Box<User> box = await Hive.openBox<User>('user'); 
     if(box.values.isNotEmpty){
+      print(box.values.first.token ?? "kosong token");
       Get.to(FindLocationView());
 
     }else{
