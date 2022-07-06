@@ -12,6 +12,8 @@ class AssetsConst {
   String googleIcons = "google_icons.svg";
   String searchLocation = "search_location.png";
   String mapAreaCircle = "map_area_circle.png";
+  String diskonImage = "diskon_image.png";
+  String voucherImage = "voucher_image.png";
   String loadingLocation = "loading_location.json";
 }
 

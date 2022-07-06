@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -6,27 +7,66 @@ import 'dart:async';
 
 import 'package:javacode/Modules/Features/Views/UI/login_view.dart';
 import 'package:javacode/Modules/Features/Views/UI/no_connection_view.dart';
+import 'package:javacode/Modules/Features/Views/UI/promo_detail_view.dart';
+import 'package:javacode/Modules/Models/Hive/promo_detail_response_model.dart';
 import 'package:javacode/Modules/Models/Hive/user_hive_model.dart';
+import 'package:javacode/Utils/Services/promo_service.dart';
+import 'package:uni_links/uni_links.dart';
 
 class MainController extends GetxController {
   RxBool isLoading = false.obs;
+  PromoService promoService = PromoService();
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
     checkConnection();
+    // initUniLinks();
+  }
+
+  initUniLinks() async {
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      final initialLink = await getInitialLink();
+      // Parse the link and warn the user, if it is not correct,
+      // but keep in mind it could be `null`.
+      if (initialLink != null) {
+        if (initialLink.contains("promo/detail/")) {
+          getPromoDetail(initialLink);
+        }
+      }
+    } on PlatformException {
+      // print('')
+      return;
+    }
+  }
+
+  getPromoDetail(String link) async {
+    PromoDetailResponse? promoDetailResponse =
+        await promoService.getPromoDetail(link);
+    if (promoDetailResponse != null) {
+      Get.to(PromoDetailView(promo: promoDetailResponse.data!));
+    }
   }
 
   checkUserLogin() async {
-    Box<User> box = await Hive.openBox<User>('user'); 
-    if(box.values.isNotEmpty){
+    var box = Hive.box<User>('user');
+    if (box.values.isNotEmpty) {
       print(box.values.first.token ?? "kosong token");
-      Get.to(FindLocationView());
-
-    }else{
+      final initialLink = await getInitialLink();
+      // Parse the link and warn the user, if it is not correct,
+      // but keep in mind it could be `null`.
+      if (initialLink != null) {
+        if (initialLink.contains("promo/detail/")) {
+          getPromoDetail(initialLink);
+        }
+      } else {
+        print("initial link null");
+        Get.to(FindLocationView());
+      }
+    } else {
       Get.to(LoginView());
-
     }
   }
 

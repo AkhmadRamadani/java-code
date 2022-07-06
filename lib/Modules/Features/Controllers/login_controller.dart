@@ -37,7 +37,7 @@ class LoginController extends GetxController {
   }
 
   loginFunction(String email, String password) async {
-    var box = await Hive.openBox<user_hive.User>('user');
+    var box = Hive.box<user_hive.User>('user');
 
     if (email.length == 0) {
       Get.snackbar("Email Kosong", "Email wajib diisikan");
@@ -95,7 +95,7 @@ class LoginController extends GetxController {
   }
 
   loginWithGoogle() async {
-    var box = await Hive.openBox<user_hive.User>('user');
+    var box = Hive.box<user_hive.User>('user');
 
     isLoading = true.obs;
     LoginResponse? loginRes = await authService.loginWithGoogle();
