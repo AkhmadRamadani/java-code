@@ -8,7 +8,7 @@ import 'dart:async';
 import 'package:javacode/Modules/Features/Views/UI/login_view.dart';
 import 'package:javacode/Modules/Features/Views/UI/no_connection_view.dart';
 import 'package:javacode/Modules/Features/Views/UI/promo_detail_view.dart';
-import 'package:javacode/Modules/Models/Hive/promo_detail_response_model.dart';
+import 'package:javacode/Modules/Models/promo_detail_response_model.dart';
 import 'package:javacode/Modules/Models/Hive/user_hive_model.dart';
 import 'package:javacode/Utils/Services/promo_service.dart';
 import 'package:uni_links/uni_links.dart';
@@ -46,7 +46,7 @@ class MainController extends GetxController {
     PromoDetailResponse? promoDetailResponse =
         await promoService.getPromoDetail(link);
     if (promoDetailResponse != null) {
-      Get.to(PromoDetailView(promo: promoDetailResponse.data!));
+      Get.offAll(PromoDetailView(promo: promoDetailResponse.data!, isFromLink: true,));
     }
   }
 
@@ -63,10 +63,10 @@ class MainController extends GetxController {
         }
       } else {
         print("initial link null");
-        Get.to(FindLocationView());
+        Get.offAll(FindLocationView());
       }
     } else {
-      Get.to(LoginView());
+      Get.offAll(LoginView());
     }
   }
 

@@ -1,4 +1,4 @@
-import 'package:javacode/Modules/Models/Hive/promo_detail_response_model.dart';
+import 'package:javacode/Modules/Models/promo_detail_response_model.dart';
 import 'package:javacode/Modules/Models/promo_response_model.dart';
 import 'package:javacode/Utils/Services/network_service.dart';
 
@@ -8,7 +8,6 @@ class PromoService extends NetworkService {
     final response = await get(
         super.baseUrlConst.baseUrl + super.endPointConst.getPromoList,
         headers: headers);
-    print(response.body);
     if (response.body['status_code'] == 200) {
       PromoResponse promoResponse = PromoResponse.fromJson(response.body);
       return promoResponse;

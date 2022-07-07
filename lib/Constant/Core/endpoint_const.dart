@@ -3,4 +3,5 @@ class EndPointConst{
   String logout = "auth/logout";
 
   String getPromoList = "promo/all"; 
+  String getMenuList = "menu/all"; 
 }
