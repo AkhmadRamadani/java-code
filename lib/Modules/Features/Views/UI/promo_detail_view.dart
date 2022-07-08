@@ -22,9 +22,9 @@ class PromoDetailView extends GetView<PromoController> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if(isFromLink)  {
+        if (isFromLink) {
           return await Get.offAll(MainView());
-        }else{
+        } else {
           return true;
         }
       },
@@ -32,6 +32,7 @@ class PromoDetailView extends GetView<PromoController> {
           init: PromoController(promo: promo),
           builder: (value) {
             return Scaffold(
+              backgroundColor: colorConst.backgroundCardColor,
               floatingActionButton: FloatingActionButton(
                 onPressed: () {
                   value.share();

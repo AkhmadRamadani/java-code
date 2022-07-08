@@ -55,6 +55,9 @@ class MyApp extends StatelessWidget {
       ),
       home: GetMaterialApp(
         debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          scaffoldBackgroundColor: Colors.white,
+        ),
         home: SplashView(),
       ),
     );

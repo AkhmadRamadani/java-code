@@ -89,8 +89,12 @@ class MenuController extends GetxController {
       menuHive.keteranganLevel = level.keterangan!;
       menuHive.level = level.idDetail;
       menuHive.harga = menuHive.harga! + level.harga!;
-      update();
+    } else {
+      menuHive.keteranganLevel = 0.toString();
+      menuHive.level = 0;
+      menuHive.harga = menuHive.harga! - level.harga!;
     }
+    update();
   }
 
   void addTopping(Level topping, int index) {

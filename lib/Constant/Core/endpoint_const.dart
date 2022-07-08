@@ -6,4 +6,7 @@ class EndPointConst{
   String getMenuList = "menu/all"; 
   String getMenuDetail = "menu/detail/"; 
   String getMyDiskon = "diskon/user/"; 
+  String getMyVoucher = "voucher/user/";
+  String getAllVoucher = "voucher/all";
+
 }
