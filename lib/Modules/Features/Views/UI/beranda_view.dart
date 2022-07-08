@@ -7,7 +7,10 @@ import 'package:javacode/Constant/Core/colors_const.dart';
 import 'package:javacode/Modules/Features/Controllers/beranda_controller.dart';
 import 'package:javacode/Modules/Features/Views/Components/menu_card_components.dart';
 import 'package:javacode/Modules/Features/Views/Components/promo_components.dart';
+import 'package:javacode/Modules/Features/Views/UI/cart_view.dart';
+import 'package:javacode/Modules/Features/Views/UI/menu_detail_view.dart';
 import 'package:javacode/Modules/Features/Views/UI/promo_detail_view.dart';
+import 'package:javacode/Modules/Models/menu_response_model.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart' as pull_to_refresh;
 import 'package:shimmer/shimmer.dart';
 
@@ -25,6 +28,52 @@ class BerandaView extends GetView<BerandaController> {
         builder: (value) {
           return Scaffold(
             // key: berandaController.scaffoldKey,
+            floatingActionButton: Padding(
+              padding: const EdgeInsets.only(bottom: 70.0),
+              child: Container(
+                child: FittedBox(
+                  child: Stack(
+                    alignment: Alignment(1.4, -1.5),
+                    children: [
+                      FloatingActionButton(
+                        // Your actual Fab
+                        onPressed: () {
+                          Get.to(CartView());
+                        },
+                        backgroundColor: colorConst.secondaryColor,
+                        child: Icon(Icons.shopping_cart),
+                      ),
+                      Container(
+                        // This is your Badge
+                        child: Center(
+                          // Here you can put whatever content you want inside your Badge
+                          child: Text(
+                              value.orderBox.values.first.menu?.length
+                                      .toString() ??
+                                  "0",
+                              style: TextStyle(color: Colors.white)),
+                        ),
+                        padding: EdgeInsets.all(8),
+                        constraints:
+                            BoxConstraints(minHeight: 32, minWidth: 32),
+                        decoration: BoxDecoration(
+                          // This controls the shadow
+                          boxShadow: [
+                            BoxShadow(
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                color: Colors.black.withAlpha(50))
+                          ],
+                          borderRadius: BorderRadius.circular(16),
+                          color: colorConst
+                              .textColor, // This would be color of the Badge
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
             appBar: AppBar(
               backgroundColor: Colors.white,
               shape: RoundedRectangleBorder(
@@ -116,157 +165,8 @@ class BerandaView extends GetView<BerandaController> {
                               SizedBox(
                                 height: 25,
                               ),
-                              TabBar(
-                                controller: value.controller,
-                                padding: EdgeInsets.zero,
-                                indicatorPadding: EdgeInsets.zero,
-                                isScrollable: true, // Required
-                                labelStyle: TextStyle(color: Colors.white),
-                                unselectedLabelColor:
-                                    Colors.white, // Other tabs color
-                                labelPadding: EdgeInsets.symmetric(
-                                    horizontal: 12), // Space between tabs
-                                indicator: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(
-                                        20), // Creates border
-                                    color: Colors.transparent),
-                                onTap: value.handleTabSelection,
-                                tabs: [
-                                  Container(
-                                    height: 40.0,
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 16),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: value.controller.index == 0
-                                          ? colorConst.textColor
-                                          : colorConst.secondaryColor,
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(Icons.list_rounded),
-                                        SizedBox(
-                                          width: 4,
-                                        ),
-                                        Center(child: Text("Semua Menu")),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    height: 40.0,
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 16),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: value.controller.index == 1
-                                          ? colorConst.textColor
-                                          : colorConst.secondaryColor,
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(Icons.fastfood_outlined),
-                                        SizedBox(
-                                          width: 4,
-                                        ),
-                                        Center(child: Text("Makanan")),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    height: 40.0,
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 16),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: value.controller.index == 2
-                                          ? colorConst.textColor
-                                          : colorConst.secondaryColor,
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(Icons.local_drink_outlined),
-                                        SizedBox(
-                                          width: 4,
-                                        ),
-                                        Center(child: Text("Minuman")),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    height: 40.0,
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 16),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: value.controller.index == 3
-                                          ? colorConst.textColor
-                                          : colorConst.secondaryColor,
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(Icons.fastfood_outlined),
-                                        SizedBox(
-                                          width: 4,
-                                        ),
-                                        Center(child: Text("Snack")),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Container(
-                                height: MediaQuery.of(context).size.width,
-                                child: TabBarView(
-                                    controller: value.controller,
-                                    children: value.tabs.map((String e) {
-                                      if (value.controller.index == 1) {
-                                        return ListView.builder(
-                                          itemCount: value.makananList.length,  
-                                          itemBuilder: (context, index) {
-                                            return MenuCardComponents(
-                                                menu:
-                                                    value.makananList[index]!);
-                                          },
-                                        );
-                                      } else if (value.controller.index == 2) {
-                                        return ListView.builder(
-                                          itemCount: value.minumanList.length,  
-                                          itemBuilder: (context, index) {
-                                            return MenuCardComponents(
-                                                menu:
-                                                    value.minumanList[index]!);
-                                          },
-                                        );
-                                      } else if (value.controller.index == 3) {
-                                        return ListView.builder(
-                                          itemCount: value.snackList.length,  
-                                          itemBuilder: (context, index) {
-                                            return MenuCardComponents(
-                                                menu: value.snackList[index]!);
-                                          },
-                                        );
-                                      } else {
-                                        return ListView.builder(
-                                          itemCount:
-                                              value.menuResponse.menu?.length ??
-                                                  0,  
-                                          itemBuilder: (context, index) {
-                                            return MenuCardComponents(
-                                                menu: value
-                                                    .menuResponse.menu![index]);
-                                          },
-                                        );
-                                      }
-                                    }).toList()),
-                              ),
+                              kategoriList(value),
+                              selectedListMenu(value)
                             ],
                           ),
                         )
@@ -274,12 +174,126 @@ class BerandaView extends GetView<BerandaController> {
                           itemCount: value.searchResult.length,
                           itemBuilder: (context, index) {
                             return MenuCardComponents(
+                                onPressed: () {
+                                  Get.to(DetailMenuView(
+                                      menu: value.searchResult[index]!));
+                                },
                                 menu: value.searchResult[index]!);
                           },
                         ),
             ),
           );
         });
+  }
+
+  Widget selectedListMenu(BerandaController value) {
+    return GetBuilder<BerandaController>(
+        init: value,
+        builder: (value) {
+          if (value.selectedMenuIndex == 1) {
+            return listDataMenu(value.makananList!, value);
+          } else if (value.selectedMenuIndex == 2) {
+            return listDataMenu(value.minumanList!, value);
+          } else if (value.selectedMenuIndex == 3) {
+            return listDataMenu(value.snackList!, value);
+          } else {
+            return listDataMenu(value.menuResponse.menu!, value);
+          }
+        });
+  }
+
+  Widget listDataMenu(List<Menu> listMenu, BerandaController value) {
+    return GetBuilder<BerandaController>(
+        init: value,
+        builder: (value) {
+          return ListView.builder(
+            itemCount: listMenu.length,
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return MenuCardComponents(
+                  onPressed: () {
+                    Get.to(DetailMenuView(
+                      menu: listMenu[index],
+                    ));
+                  },
+                  menu: listMenu[index]);
+            },
+          );
+        });
+  }
+
+  Widget kategoriList(BerandaController value) {
+    return GetBuilder<BerandaController>(
+        init: value,
+        builder: (value) {
+          return SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    value.changeSelectedMenu(0);
+                  },
+                  child: kategoriChip(value.selectedMenuIndex == 0,
+                      Icons.list_rounded, "Semua Menu"),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    value.changeSelectedMenu(1);
+                  },
+                  child: kategoriChip(value.selectedMenuIndex == 1,
+                      Icons.flatware_outlined, "Makanan"),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    value.changeSelectedMenu(2);
+                  },
+                  child: kategoriChip(value.selectedMenuIndex == 2,
+                      Icons.local_drink_outlined, "Minuman"),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    value.changeSelectedMenu(3);
+                  },
+                  child: kategoriChip(value.selectedMenuIndex == 3,
+                      Icons.fastfood_outlined, "Snack"),
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
+  Widget kategoriChip(bool selected, IconData icon, String text) {
+    return Container(
+      height: 40.0,
+      margin: EdgeInsets.symmetric(horizontal: 12),
+      padding: EdgeInsets.symmetric(
+        horizontal: 16,
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: selected ? colorConst.textColor : colorConst.secondaryColor,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            icon,
+            color: Colors.white,
+          ),
+          SizedBox(
+            width: 4,
+          ),
+          Center(
+              child: Text(
+            text,
+            style: TextStyle(color: Colors.white),
+          )),
+        ],
+      ),
+    );
   }
 
   Widget shimmerLoading(BuildContext context) {

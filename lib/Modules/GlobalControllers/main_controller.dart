@@ -8,6 +8,7 @@ import 'dart:async';
 import 'package:javacode/Modules/Features/Views/UI/login_view.dart';
 import 'package:javacode/Modules/Features/Views/UI/no_connection_view.dart';
 import 'package:javacode/Modules/Features/Views/UI/promo_detail_view.dart';
+import 'package:javacode/Modules/Models/Hive/order_hive_model.dart';
 import 'package:javacode/Modules/Models/promo_detail_response_model.dart';
 import 'package:javacode/Modules/Models/Hive/user_hive_model.dart';
 import 'package:javacode/Utils/Services/promo_service.dart';
@@ -46,14 +47,27 @@ class MainController extends GetxController {
     PromoDetailResponse? promoDetailResponse =
         await promoService.getPromoDetail(link);
     if (promoDetailResponse != null) {
-      Get.offAll(PromoDetailView(promo: promoDetailResponse.data!, isFromLink: true,));
+      Get.offAll(PromoDetailView(
+        promo: promoDetailResponse.data!,
+        isFromLink: true,
+      ));
     }
   }
 
   checkUserLogin() async {
     var box = Hive.box<User>('user');
+    var orderBox = Hive.box<OrderHive>('order');
+
     if (box.values.isNotEmpty) {
       print(box.values.first.token ?? "kosong token");
+      if (orderBox.values.isEmpty) {
+        OrderHive orderHive = OrderHive();
+        orderHive.idUser = box.values.first.idUser!;
+
+        await orderBox.add(orderHive);
+      }else{
+        print("keys " + orderBox.keys.first.toString());
+      }
       final initialLink = await getInitialLink();
       // Parse the link and warn the user, if it is not correct,
       // but keep in mind it could be `null`.

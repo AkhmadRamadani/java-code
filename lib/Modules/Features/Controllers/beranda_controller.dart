@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:javacode/Modules/Models/Hive/order_hive_model.dart';
 import 'package:javacode/Modules/Models/menu_response_model.dart';
 import 'package:javacode/Modules/Models/promo_response_model.dart';
 import 'package:javacode/Utils/Services/menu_service.dart';
@@ -17,15 +19,16 @@ class BerandaController extends GetxController
   RxBool isLoading = false.obs;
   PromoResponse promoResponse = PromoResponse();
   GetMenuResponse menuResponse = GetMenuResponse();
-  List<Menu?> makananList = [];
-  List<Menu?> minumanList = [];
-  List<Menu?> snackList = [];
+  List<Menu>? makananList = [];
+  List<Menu>? minumanList = [];
+  List<Menu>? snackList = [];
   List<Menu?> searchResult = [];
 
   late TabController controller;
   List<String> tabs = ["semua", "makanan", "minuman", "snack"];
-
+  int selectedMenuIndex = 0;
   TextEditingController searchController = TextEditingController();
+  var orderBox = Hive.box<OrderHive>('order');
 
   @override
   void onInit() {
@@ -88,11 +91,16 @@ class BerandaController extends GetxController
     }
 
     menuResponse.menu!.forEach((Menu data) {
-      if (data.nama!.toLowerCase().contains(text) || data.deskripsi!.toLowerCase().contains(text))
-        searchResult.add(data);
-        // update();
+      if (data.nama!.toLowerCase().contains(text) ||
+          data.deskripsi!.toLowerCase().contains(text)) searchResult.add(data);
+      // update();
     });
 
+    update();
+  }
+
+  changeSelectedMenu(int index){
+    selectedMenuIndex = index;
     update();
   }
 

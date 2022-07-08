@@ -10,4 +10,5 @@ class ColorConst {
   Color inactiveColor = const Color.fromRGBO(194, 194, 194, 1);
   Color backgroundImageColor = const Color.fromRGBO(223, 223, 223, 1);
   Color backgroundCardColor = const Color.fromRGBO(246, 246, 246, 1);
+  Color dangerColor = const Color.fromRGBO(216, 29, 29, 1);
 }
