@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:javacode/Constant/Core/assets_const.dart';
 import 'package:javacode/Constant/Core/colors_const.dart';
 import 'package:javacode/Modules/Features/Controllers/cart_controller.dart';
 import 'package:javacode/Modules/Features/Views/Components/button_components.dart';
+import 'package:javacode/Modules/Features/Views/Components/fingerprint_dialog_components.dart';
 import 'package:javacode/Modules/Features/Views/Components/menu_card_components.dart';
 
 import 'package:intl/intl.dart';
 import 'package:javacode/Modules/Features/Views/UI/choose_voucher_view.dart';
 import 'package:javacode/Modules/Features/Views/UI/edit_menu_view.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
 class CartView extends GetView<CartController> {
   CartView({Key? key}) : super(key: key);
@@ -16,6 +19,7 @@ class CartView extends GetView<CartController> {
   final AssetsConst assetsConst = AssetsConst();
   final ColorConst colorConst = ColorConst();
   final formatCurrency = NumberFormat.decimalPattern();
+  // CartController cartController = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
@@ -561,7 +565,11 @@ class CartView extends GetView<CartController> {
                                         value.selectedVoucher != null
                                             ? Text(
                                                 "Rp " +
-                                                    (value.orderBox.values.first
+                                                    formatCurrency
+                                                        .format(value
+                                                                        .orderBox
+                                                                        .values
+                                                                        .first
                                                                         .totalBayar! -
                                                                     value
                                                                         .selectedVoucher!
@@ -586,8 +594,12 @@ class CartView extends GetView<CartController> {
                                               )
                                             : Text(
                                                 "Rp " +
-                                                    (value.orderBox.values
-                                                                    .first.totalBayar! <
+                                                    formatCurrency
+                                                        .format(value
+                                                                    .orderBox
+                                                                    .values
+                                                                    .first
+                                                                    .totalBayar! <
                                                                 10000
                                                             ? value
                                                                 .orderBox
@@ -612,7 +624,9 @@ class CartView extends GetView<CartController> {
                                       ],
                                     ),
                                     GestureDetector(
-                                      onTap: () {},
+                                      onTap: () {
+                                        showDialogIdentify(context, value);
+                                      },
                                       child: Container(
                                         width:
                                             MediaQuery.of(context).size.width /
@@ -648,6 +662,25 @@ class CartView extends GetView<CartController> {
             ),
           );
         });
+  }
+
+  // showDialogVerifyWithPin(CartController value) {
+  //   return showDialog(
+  //     context: Get.overlayContext!,
+  //     builder: (BuildContext context) {
+  //       return 
+  //     },
+  //   );
+  // }
+
+  showDialogIdentify(BuildContext context, CartController value) {
+    Get.delete<CartController>();
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return FingerprintDialog();
+      },
+    );
   }
 
   Future<void> showModalVoucher(BuildContext context) {

@@ -105,6 +105,8 @@ class MenuController extends GetxController {
       menuHive.toppingDetail!
           .removeWhere((element) => element.idDetail == topping.idDetail);
 
+      menuHive.topping!
+          .removeWhere((element) => element == topping.idDetail);
       menuHive.harga = menuHive.harga! - topping.harga!;
       menuDetailResponse!.data!.topping![index].isSelected = false;
     } else {
@@ -117,7 +119,7 @@ class MenuController extends GetxController {
       newTopping.type = topping.type;
 
       menuHive.toppingDetail!.add(newTopping);
-
+      menuHive.topping!.add(newTopping.idDetail!);
       menuHive.harga = menuHive.harga! + topping.harga!;
       menuDetailResponse!.data!.topping![index].isSelected = true;
     }
