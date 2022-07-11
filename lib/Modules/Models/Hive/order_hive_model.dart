@@ -11,9 +11,9 @@ class OrderHive extends HiveObject{
   @HiveField(1)
   int? idVoucher;
   @HiveField(2)
-  int? potongan = 0;
+  double? potongan = 0;
   @HiveField(3)
-  int? totalBayar = 0;
+  double? totalBayar = 0;
   
   @HiveField(4)
   List<MenuHive>? menu = [];

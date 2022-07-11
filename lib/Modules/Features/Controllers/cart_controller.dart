@@ -13,16 +13,19 @@ import 'package:javacode/Modules/Models/Hive/user_hive_model.dart';
 import 'package:javacode/Modules/Models/diskon_response_model.dart';
 import 'package:javacode/Modules/Models/my_voucher_response_model.dart';
 import 'package:javacode/Utils/Services/diskon_service.dart';
+import 'package:javacode/Utils/Services/order_service.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class CartController extends GetxController {
-  
   final AssetsConst assetsConst = AssetsConst();
   final ColorConst colorConst = ColorConst();
   var orderBox = Hive.box<OrderHive>('order');
   GetDiskonResponse? diskonResponse;
+
   DiskonService diskonService = DiskonService();
+  OrderService orderService = OrderService();
+
   Voucher? selectedVoucher;
   LocalAuthentication auth = LocalAuthentication();
   TextEditingController pinController = TextEditingController();
@@ -30,97 +33,19 @@ class CartController extends GetxController {
   StreamController<ErrorAnimationType> errorController =
       StreamController<ErrorAnimationType>();
 
-  showDialogIdentify(BuildContext context, CartController value) {
-    return showDialog(
-      context: Get.overlayContext!,
-      builder: (_) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(32.0))),
-          content: Container(
-            height: MediaQuery.of(context).size.width - 50,
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.all(25),
-            child: Column(children: [
-              Text(
-                "Verifikasi Pesanan",
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              Text(
-                "Finger Print",
-              ),
-              SizedBox(
-                height: 36,
-              ),
-              GestureDetector(
-                onTap: () {
-                  value.authenticateWithBiometrics();
-                },
-                child: Icon(
-                  Icons.fingerprint,
-                  color: colorConst.secondaryColor,
-                  size: 142,
-                ),
-              ),
-              SizedBox(
-                height: 26,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                child: Row(
-                  children: [
-                    const Expanded(
-                      child: Divider(),
-                      flex: 1,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                      child: Text(
-                        "atau",
-                        style: TextStyle(
-                          color: colorConst.greyTextColor,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ),
-                    const Expanded(
-                      child: Divider(),
-                      flex: 1,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 12,
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(Get.overlayContext!).pop();
-                  // showDialogVerifyWithPin(context, value);
-                  // Navigator.pop(context);
-                },
-                child: Text(
-                  "Verifikasi Menggunakan PIN",
-                  style: TextStyle(
-                    color: colorConst.secondaryColor,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-            ]),
-          ),
-        );
-      },
-    );
-  }
+  RxBool isSuccess = false.obs;
+  RxBool isLoading = false.obs;
 
-  checkPin() {
+  checkPin() async {
     if (pinController.text == userBox.values.first.pin) {
-      Get.back(closeOverlays: true);
+      // Get.back(closeOverlays: true);
+      Get.close(2);
+      isLoading = true.obs;
+      update();
+      await checkout();
+      isLoading = false.obs;
+
+      update();
     } else {
       errorController.add(ErrorAnimationType.shake);
     }
@@ -151,8 +76,7 @@ class CartController extends GetxController {
     bool authenticated = false;
     try {
       authenticated = await auth.authenticate(
-        localizedReason:
-            'Scan your fingerprint (or face or whatever) to authenticate',
+        localizedReason: 'Scan fingerprint untuk melanjutkan pembelian',
         options: const AuthenticationOptions(
           useErrorDialogs: true,
           stickyAuth: true,
@@ -173,6 +97,42 @@ class CartController extends GetxController {
     // setState(() {
     //   _authorized = message;
     // });
+  }
+
+  checkout() async {
+    OrderHive requestFix = orderBox.values.first;
+    if (selectedVoucher != null) {
+      double totalBayarTemp =
+          requestFix.totalBayar! - selectedVoucher!.nominal!;
+      requestFix.idVoucher = selectedVoucher!.idVoucher;
+      if (totalBayarTemp < 0) {
+        totalBayarTemp = 0;
+      }
+      requestFix.totalBayar = totalBayarTemp;
+    }
+
+    if (diskonResponse != null && selectedVoucher == null) {
+      if (requestFix.totalBayar! > 10000) {
+        requestFix.potongan = getDiskonAmount();
+        double totalBayarTemp = requestFix.totalBayar! - getDiskonAmount();
+        if (totalBayarTemp < 0) {
+          totalBayarTemp = 0;
+        }
+        requestFix.totalBayar = totalBayarTemp;
+      }
+    }
+    bool requestOrder = await orderService.orderRequest(requestFix);
+    if (requestOrder) {
+      isSuccess = true.obs;
+      OrderHive tempOrderHive = OrderHive();
+      tempOrderHive.idUser = userBox.values.first.idUser;
+      orderBox.put(orderBox.keys.first, tempOrderHive);
+    } else {
+      // OrderHive tempOrderHive = orderBox.values.first;
+      // orderBox.put(orderBox.keys.first, tempOrderHive);
+      
+    }
+    update();
   }
 
   @override

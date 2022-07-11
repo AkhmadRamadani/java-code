@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:javacode/Modules/Features/Views/UI/find_location_view.dart';
+import 'package:javacode/Modules/Models/Hive/order_hive_model.dart';
 import 'package:javacode/Modules/Models/Hive/user_hive_model.dart' as user_hive;
 import 'package:javacode/Modules/Models/Hive/akses_hive_model.dart'
     as akses_hive;
@@ -38,6 +39,7 @@ class LoginController extends GetxController {
 
   loginFunction(String email, String password) async {
     var box = Hive.box<user_hive.User>('user');
+    var orderBox = Hive.box<OrderHive>('order');
 
     if (email.length == 0) {
       Get.snackbar("Email Kosong", "Email wajib diisikan");
@@ -82,6 +84,10 @@ class LoginController extends GetxController {
       userData.akses = aksesUser;
 
       // userData.akses = loginRes.data?.user?.akses??;
+      OrderHive orderHive = OrderHive();
+      orderHive.idUser = box.values.first.idUser!;
+
+      await orderBox.add(orderHive);
       await box.clear();
       await box.add(userData);
       isLoading = false.obs;
@@ -96,6 +102,7 @@ class LoginController extends GetxController {
 
   loginWithGoogle() async {
     var box = Hive.box<user_hive.User>('user');
+    var orderBox = Hive.box<OrderHive>('order');
 
     isLoading = true.obs;
     LoginResponse? loginRes = await authService.loginWithGoogle();
@@ -127,6 +134,10 @@ class LoginController extends GetxController {
       userData.akses = aksesUser;
 
       // userData.akses = loginRes.data?.user?.akses??;
+      OrderHive orderHive = OrderHive();
+      orderHive.idUser = box.values.first.idUser!;
+
+      await orderBox.add(orderHive);
       await box.clear();
       await box.add(userData);
       isLoading = false.obs;

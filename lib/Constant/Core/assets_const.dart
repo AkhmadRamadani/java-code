@@ -19,6 +19,8 @@ class AssetsConst {
   String noteIconBlue = "note_icon_blue.png";
   String topingIconBlue = "toping_icon_blue.png";
   String loadingLocation = "loading_location.json";
+  String orderSukses = "pesanan_disiapkan_image.png";
+
 }
 
 class ImagesConst {

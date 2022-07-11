@@ -6,8 +6,8 @@ class DiskonService extends NetworkService {
     Map<String, String> headers = {'token': super.box.values.first.token ?? ""};
     final response = await get(
         super.baseUrlConst.baseUrl +
-            super.endPointConst.getMyDiskon + "74",
-            // super.box.values.first.idUser.toString(),
+            super.endPointConst.getMyDiskon +
+            super.box.values.first.idUser.toString(),
         headers: headers);
     print(response.body);
     if (response.body['status_code'] == 200) {

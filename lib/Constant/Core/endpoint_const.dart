@@ -9,4 +9,7 @@ class EndPointConst{
   String getMyVoucher = "voucher/user/";
   String getAllVoucher = "voucher/all";
 
+  String getOrderByStatus = "order/status/";
+  String getOrderByUser = "order/user/";
+  String addOrder = "order/add";
 }

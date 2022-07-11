@@ -19,8 +19,8 @@ class OrderHiveAdapter extends TypeAdapter<OrderHive> {
     return OrderHive()
       ..idUser = fields[0] as int?
       ..idVoucher = fields[1] as int?
-      ..potongan = fields[2] as int?
-      ..totalBayar = fields[3] as int?
+      ..potongan = fields[2] as double?
+      ..totalBayar = fields[3] as double?
       ..menu = (fields[4] as List?)?.cast<MenuHive>();
   }
 
