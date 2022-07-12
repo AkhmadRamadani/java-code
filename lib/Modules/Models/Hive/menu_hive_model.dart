@@ -27,4 +27,10 @@ class MenuHive extends HiveObject {
   String catatan = "";
   @HiveField(10)
   String kategori = "";
+  @HiveField(11)
+  int? hargaAsli;
+  @HiveField(12)
+  int? hargaLevel = 0;
+  @HiveField(13)
+  int? totalHargaTopping = 0;
 }

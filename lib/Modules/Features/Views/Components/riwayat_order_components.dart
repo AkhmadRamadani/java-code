@@ -4,11 +4,11 @@ import 'package:javacode/Constant/Core/colors_const.dart';
 import 'package:javacode/Modules/Models/order_response_model.dart';
 import 'package:javacode/Utils/Functions/common_functions.dart';
 
-class OrderHistoryCardComponents extends StatelessWidget {
-  OrderHistoryCardComponents({Key? key, required this.menuHistory})
+class RiwayatOrderComponents extends StatelessWidget {
+  RiwayatOrderComponents({Key? key, required this.menuHistory, required this.pesanLagi})
       : super(key: key);
   Order menuHistory;
-
+  Function pesanLagi;
   final AssetsConst assetsConst = AssetsConst();
   final ColorConst colorConst = ColorConst();
   final CommonFunctions commonFunctions = CommonFunctions();
@@ -93,7 +93,8 @@ class OrderHistoryCardComponents extends StatelessWidget {
                       Text(
                         "Rp." +
                             commonFunctions.formatCurrency
-                                .format(menuHistory.totalBayar).toString(),
+                                .format(menuHistory.totalBayar)
+                                .toString(),
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 18,
@@ -113,6 +114,59 @@ class OrderHistoryCardComponents extends StatelessWidget {
                       )
                     ],
                   ),
+                  Row(
+                    children: [
+                      menuHistory.status == 3
+                          ? Row(
+                              children: [
+                                Container(
+                                  width: 90,
+                                  height: 20,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: colorConst.secondaryColor,
+                                        width: 1),
+                                    borderRadius: BorderRadius.circular(50),
+                                    color: Colors.white,
+                                  ),
+                                  child: Text(
+                                    "Beri Penilaian",
+                                    style: TextStyle(
+                                      color: colorConst.secondaryColor,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 12,
+                                ),
+                              ],
+                            )
+                          : Container(),
+                      GestureDetector(
+                        onTap: (){
+                          pesanLagi();
+                        },
+                        child: Container(
+                          width: 90,
+                          height: 20,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: colorConst.secondaryColor, width: 1),
+                            borderRadius: BorderRadius.circular(50),
+                            color: colorConst.secondaryColor,
+                          ),
+                          child: Text(
+                            "Pesan Lagi",
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),

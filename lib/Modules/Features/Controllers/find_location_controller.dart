@@ -58,6 +58,17 @@ class FindLocationController extends GetxController {
     location = allPlacemark.first;
     isLoading = false.obs;
     update();
-    Timer(Duration(seconds: 3), () => Get.to(MainView()));
+    Timer(Duration(seconds: 3), () {
+      // Get.delete(FindLocationController());
+      Get.delete<FindLocationController>();
+
+      Get.off(MainView());
+    });
+  }
+
+  @override
+  void dispose() {
+    Get.delete<FindLocationController>();
+    super.dispose();
   }
 }

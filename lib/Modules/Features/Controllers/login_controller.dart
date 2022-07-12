@@ -85,7 +85,7 @@ class LoginController extends GetxController {
 
       // userData.akses = loginRes.data?.user?.akses??;
       OrderHive orderHive = OrderHive();
-      orderHive.idUser = box.values.first.idUser!;
+      orderHive.idUser = userData.idUser;
 
       await orderBox.add(orderHive);
       await box.clear();
@@ -135,7 +135,7 @@ class LoginController extends GetxController {
 
       // userData.akses = loginRes.data?.user?.akses??;
       OrderHive orderHive = OrderHive();
-      orderHive.idUser = box.values.first.idUser!;
+      orderHive.idUser = userData.idUser;
 
       await orderBox.add(orderHive);
       await box.clear();

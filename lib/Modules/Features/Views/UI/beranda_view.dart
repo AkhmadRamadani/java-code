@@ -19,7 +19,6 @@ class BerandaView extends GetView<BerandaController> {
 
   final AssetsConst assetsConst = AssetsConst();
   final ColorConst colorConst = ColorConst();
-  BerandaController berandaController = BerandaController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +37,7 @@ class BerandaView extends GetView<BerandaController> {
                       FloatingActionButton(
                         // Your actual Fab
                         onPressed: () {
-                          Get.to(CartView());
+                          Get.off(CartView());
                         },
                         backgroundColor: colorConst.secondaryColor,
                         child: Icon(Icons.shopping_cart),

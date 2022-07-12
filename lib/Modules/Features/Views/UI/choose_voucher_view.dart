@@ -4,6 +4,7 @@ import 'package:javacode/Constant/Core/assets_const.dart';
 import 'package:javacode/Constant/Core/colors_const.dart';
 import 'package:javacode/Modules/Features/Controllers/cart_controller.dart';
 import 'package:javacode/Modules/Features/Controllers/voucher_controller.dart';
+import 'package:javacode/Modules/Features/Views/Components/app_bar_components.dart';
 import 'package:javacode/Modules/Features/Views/Components/loading_components.dart';
 import 'package:javacode/Modules/Features/Views/Components/voucher_card_components.dart';
 import 'package:javacode/Modules/Features/Views/UI/voucher_detail_view.dart';
@@ -28,41 +29,10 @@ class ChooseVoucherView extends GetView<VoucherController> {
               return true;
             },
             child: Scaffold(
-              appBar: AppBar(
-                backgroundColor: Colors.white,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(
-                    bottom: Radius.circular(30),
-                  ),
+              appBar: AppBarComponents(
+                  icon: Icons.airplane_ticket_outlined,
+                  title: 'PilihVoucher',
                 ),
-                leading: Icon(
-                  Icons.arrow_back_ios_new_rounded,
-                  color: colorConst.textColor,
-                ),
-                centerTitle: true,
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      Icons.airplane_ticket_outlined,
-                      color: colorConst.secondaryColor,
-                      size: 32,
-                    ),
-                    const SizedBox(
-                      width: 12,
-                    ),
-                    Text(
-                      "Pilih Voucher",
-                      style: TextStyle(
-                        fontSize: 22,
-                        color: colorConst.textColor,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    )
-                  ],
-                ),
-              ),
               body: value.isLoading.isTrue
                   ? Shimmer.fromColors(
                       baseColor: Colors.grey[300]!,

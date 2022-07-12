@@ -48,6 +48,7 @@ class MenuController extends GetxController {
     menuHive.nama = menu.nama ?? "";
     menuHive.gambar = menu.foto ?? "";
     menuHive.harga = menu.harga ?? 0;
+    menuHive.hargaAsli = menu.harga ?? 0;
     menuHive.id_menu = menu.idMenu ?? 0;
     menuHive.jumlah = 1;
     menuHive.level = 0;
@@ -58,17 +59,25 @@ class MenuController extends GetxController {
 
   addAmount() {
     menuHive.jumlah = menuHive.jumlah! + 1;
-    menuHive.harga = menuHive.harga! + menu.harga!;
+    hitungTotalHarga();
+
     update();
   }
 
   subtractAmount() {
     if (menuHive.jumlah! > 1) {
       menuHive.jumlah = menuHive.jumlah! - 1;
-
-      menuHive.harga = menuHive.harga! - menu.harga!;
+      hitungTotalHarga();
       update();
     }
+  }
+
+  hitungTotalHarga() {
+    menuHive.harga = (menuHive.hargaAsli! * menuHive.jumlah!) +
+        (menuHive.jumlah! * menuHive.hargaLevel!) +
+        (menuHive.jumlah! * menuHive.totalHargaTopping!);
+
+    print("harga" + menuHive.harga.toString());
   }
 
   String getToppingName(List<String?> data) {
@@ -83,16 +92,19 @@ class MenuController extends GetxController {
         Iterable<Level> oldLevel = menuDetailResponse!.data!.level!
             .where((Level element) => element.idDetail == menuHive.level)
             .toList();
-        menuHive.harga = menuHive.harga! - oldLevel.first.harga!;
+        menuHive.hargaLevel = 0;
+        hitungTotalHarga();
       }
 
       menuHive.keteranganLevel = level.keterangan!;
       menuHive.level = level.idDetail;
-      menuHive.harga = menuHive.harga! + level.harga!;
+      menuHive.hargaLevel = level.harga!;
+      hitungTotalHarga();
     } else {
       menuHive.keteranganLevel = 0.toString();
       menuHive.level = 0;
-      menuHive.harga = menuHive.harga! - level.harga!;
+      menuHive.hargaLevel = 0;
+      hitungTotalHarga();
     }
     update();
   }
@@ -105,10 +117,12 @@ class MenuController extends GetxController {
       menuHive.toppingDetail!
           .removeWhere((element) => element.idDetail == topping.idDetail);
 
-      menuHive.topping!
-          .removeWhere((element) => element == topping.idDetail);
-      menuHive.harga = menuHive.harga! - topping.harga!;
+      menuHive.topping!.removeWhere((element) => element == topping.idDetail);
+      menuHive.totalHargaTopping = menuHive.totalHargaTopping! > 0
+          ? menuHive.totalHargaTopping! - topping.harga!
+          : 0;
       menuDetailResponse!.data!.topping![index].isSelected = false;
+      hitungTotalHarga();
     } else {
       Topping newTopping = Topping();
       newTopping.harga = topping.harga;
@@ -120,8 +134,9 @@ class MenuController extends GetxController {
 
       menuHive.toppingDetail!.add(newTopping);
       menuHive.topping!.add(newTopping.idDetail!);
-      menuHive.harga = menuHive.harga! + topping.harga!;
+      menuHive.totalHargaTopping = menuHive.totalHargaTopping! + topping.harga!;
       menuDetailResponse!.data!.topping![index].isSelected = true;
+      hitungTotalHarga();
     }
     update();
   }
@@ -131,6 +146,7 @@ class MenuController extends GetxController {
     OrderHive tempOrderHive = orderBox.values.first;
     tempOrderHive.menu!.add(menuHive);
     tempOrderHive.totalBayar = tempOrderHive.totalBayar! + menuHive.harga!;
+    print("harga Fix" + menuHive.harga.toString());
     orderBox.put(orderBox.keys.first, tempOrderHive);
     Get.snackbar(
         "Sukses Menambahkan",

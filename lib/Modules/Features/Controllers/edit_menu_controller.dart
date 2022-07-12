@@ -17,6 +17,8 @@ class EditMenuController extends MenuController {
   int index = 0;
   EditMenuController({required this.index});
   int hargaAwal = 0;
+  MenuHive tempMenuHive = MenuHive();
+  bool isUpdated = false;
 
   @override
   void onInit() {
@@ -50,6 +52,23 @@ class EditMenuController extends MenuController {
     isLoading = true.obs;
     update();
 
+    MenuHive dataTemp = MenuHive()
+      ..nama = orderBox.values.first.menu![index].nama
+      ..catatan = orderBox.values.first.menu![index].catatan
+      ..gambar = orderBox.values.first.menu![index].gambar
+      ..harga = orderBox.values.first.menu![index].harga
+      ..hargaAsli = orderBox.values.first.menu![index].hargaAsli
+      ..hargaLevel = orderBox.values.first.menu![index].hargaLevel
+      ..id_menu = orderBox.values.first.menu![index].id_menu
+      ..jumlah = orderBox.values.first.menu![index].jumlah
+      ..kategori = orderBox.values.first.menu![index].kategori
+      ..keteranganLevel = orderBox.values.first.menu![index].keteranganLevel
+      ..level = orderBox.values.first.menu![index].level
+      ..topping = orderBox.values.first.menu![index].topping
+      ..toppingDetail = orderBox.values.first.menu![index].toppingDetail
+      ..totalHargaTopping = orderBox.values.first.menu![index].totalHargaTopping;
+
+    tempMenuHive = dataTemp;
     menuHive = orderBox.values.first.menu![index];
     hargaAwal = menuHive.harga!;
 
@@ -71,5 +90,6 @@ class EditMenuController extends MenuController {
             menuHive.nama +
             " Rp. " +
             menuHive.harga.toString());
+    isUpdated = true;
   }
 }

@@ -107,46 +107,41 @@ class MenuCardComponents extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      GestureDetector(
-                        onTap: () {},
-                        child: Container(
+                      // Container(
+                      //   width: 20,
+                      //   height: 20,
+                      //   decoration: BoxDecoration(
+                      //     border: Border.all(
+                      //       width: 1,
+                      //       color: Color.fromRGBO(0, 154, 173, 1),
+                      //     ),
+                      //   ),
+                      //   alignment: Alignment.center,
+                      //   child: Icon(Icons.remove, size: 12, color: colorConst.secondaryColor,),
+                      // ),
+                      // SizedBox(width: 10),
+                      Text("0"),
+                      SizedBox(width: 12),
+                      Container(
                           width: 20,
                           height: 20,
                           decoration: BoxDecoration(
+                            color: colorConst.secondaryColor,
                             border: Border.all(
                               width: 1,
                               color: Color.fromRGBO(0, 154, 173, 1),
                             ),
                           ),
                           alignment: Alignment.center,
-                          child: Icon(Icons.remove, size: 12, color: colorConst.secondaryColor,),
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Text("0"),
-                      SizedBox(width: 10),
-                      GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                            width: 20,
-                            height: 20,
-                            decoration: BoxDecoration(
-                              color: colorConst.secondaryColor,
-                              border: Border.all(
-                                width: 1,
-                                color: Color.fromRGBO(0, 154, 173, 1),
-                              ),
-                            ),
-                            alignment: Alignment.center,
-                            child: Icon(
-                              Icons.add,
-                              size: 12,
-                              color: Colors.white,
-                            )),
-                      ),
+                          child: Icon(
+                            Icons.add,
+                            size: 12,
+                            color: Colors.white,
+                          )),
+                      SizedBox(width: 20),
                     ],
                   ),
                 )

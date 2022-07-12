@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:javacode/Constant/Core/assets_const.dart';
 import 'package:javacode/Constant/Core/colors_const.dart';
 import 'package:javacode/Modules/Features/Controllers/promo_controller.dart';
+import 'package:javacode/Modules/Features/Views/Components/app_bar_components.dart';
 import 'package:javacode/Modules/Features/Views/Components/promo_components.dart';
 import 'package:javacode/Modules/Features/Views/UI/main_view.dart';
 import 'package:javacode/Modules/Models/promo_response_model.dart';
@@ -39,40 +40,10 @@ class PromoDetailView extends GetView<PromoController> {
                 },
                 child: Icon(Icons.share),
               ),
-              appBar: AppBar(
-                  backgroundColor: Colors.white,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(
-                      bottom: Radius.circular(30),
-                    ),
-                  ),
-                  leading: Icon(
-                    Icons.arrow_back_ios_new_rounded,
-                    color: colorConst.textColor,
-                  ),
-                  centerTitle: true,
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.confirmation_num_rounded,
-                        color: colorConst.secondaryColor,
-                        size: 32,
-                      ),
-                      const SizedBox(
-                        width: 12,
-                      ),
-                      Text(
-                        "Promo",
-                        style: TextStyle(
-                          fontSize: 22,
-                          color: colorConst.textColor,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      )
-                    ],
-                  )),
+              appBar: AppBarComponents(
+                icon: Icons.confirmation_num_rounded,
+                title: 'Promo',
+              ),
               body: SafeArea(
                 child: LayoutBuilder(builder:
                     (BuildContext context, BoxConstraints constraints) {

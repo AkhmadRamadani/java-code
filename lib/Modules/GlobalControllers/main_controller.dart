@@ -102,7 +102,7 @@ class MainController extends GetxController {
       isLoading = false.obs;
       update();
       print('You are disconnected from the internet.');
-      Get.to(NoConnection());
+      Get.offAll(NoConnection());
     }
     return await InternetConnectionChecker().hasConnection;
   }

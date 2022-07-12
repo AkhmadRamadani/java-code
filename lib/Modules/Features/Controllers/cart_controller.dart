@@ -8,8 +8,11 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:javacode/Constant/Core/assets_const.dart';
 import 'package:javacode/Constant/Core/colors_const.dart';
+import 'package:javacode/Modules/Features/Views/Components/button_components.dart';
+import 'package:javacode/Modules/Models/Hive/menu_hive_model.dart';
 import 'package:javacode/Modules/Models/Hive/order_hive_model.dart';
 import 'package:javacode/Modules/Models/Hive/user_hive_model.dart';
+import 'package:javacode/Modules/Models/add_order_response.dart';
 import 'package:javacode/Modules/Models/diskon_response_model.dart';
 import 'package:javacode/Modules/Models/my_voucher_response_model.dart';
 import 'package:javacode/Utils/Services/diskon_service.dart';
@@ -35,6 +38,7 @@ class CartController extends GetxController {
 
   RxBool isSuccess = false.obs;
   RxBool isLoading = false.obs;
+  int idOfNewOrder = 0;
 
   checkPin() async {
     if (pinController.text == userBox.values.first.pin) {
@@ -97,6 +101,91 @@ class CartController extends GetxController {
     // setState(() {
     //   _authorized = message;
     // });
+
+    if (authenticated) {
+      print("true auth");
+      Get.close(1);
+      isLoading = true.obs;
+      update();
+      await checkout();
+
+      isLoading = false.obs;
+      // checkout();
+    } else {
+      print("false auth");
+    }
+  }
+
+  addAmount(int index) {
+    MenuHive menuHive = orderBox.values.first.menu![index];
+    menuHive.jumlah = menuHive.jumlah! + 1;
+
+    update();
+    hitungTotalHarga(index, menuHive);
+  }
+
+  subtractAmount(int index) {
+    MenuHive menuHive = orderBox.values.first.menu![index];
+    if (menuHive.jumlah! > 1) {
+      menuHive.jumlah = menuHive.jumlah! - 1;
+      update();
+
+      hitungTotalHarga(index, menuHive);
+    } else {
+      showDialog(
+          context: Get.context!,
+          builder: (builder) {
+            return AlertDialog(
+              title: Text("Hapus item dari keranjang?"),
+              actions: [
+                GestureDetector(
+                  onTap: () {
+                    deleteItemFromCart(index);
+                  },
+                  child: Container(
+                    width: 100,
+                    child: ButtonComponents(
+                      buttonTitle: "Oke",
+                      buttonColor: colorConst.dangerColor,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          });
+    }
+  }
+
+  deleteItemFromCart(int index) {
+    OrderHive orderHive = orderBox.values.first;
+    if (index >= 0) {
+      orderHive.totalBayar =
+          orderHive.totalBayar! - orderHive.menu![index].harga!;
+      orderHive.menu!.removeAt(index);
+
+      orderBox.put(orderBox.keys.first, orderHive);
+
+      Get.close(1);
+      update();
+    }
+  }
+
+  hitungTotalHarga(int index, MenuHive menuHive) {
+    OrderHive orderHive = orderBox.values.first;
+    int menuHargaBaru = (menuHive.hargaAsli! * menuHive.jumlah!) +
+        (menuHive.jumlah! * menuHive.hargaLevel!) +
+        (menuHive.jumlah! * menuHive.totalHargaTopping!);
+
+    orderHive.totalBayar =
+        (orderHive.totalBayar! - menuHive.harga!) + menuHargaBaru;
+    orderHive.menu![index].harga = menuHargaBaru;
+    update();
+    orderHive.menu![index] = menuHive;
+    print("old harga " + menuHive.jumlah.toString());
+    print("new harga " + orderHive.menu![index].jumlah.toString());
+    print(orderHive.totalBayar.toString());
+    orderBox.put(orderBox.keys.first, orderHive);
+    update();
   }
 
   checkout() async {
@@ -121,16 +210,21 @@ class CartController extends GetxController {
         requestFix.totalBayar = totalBayarTemp;
       }
     }
-    bool requestOrder = await orderService.orderRequest(requestFix);
-    if (requestOrder) {
+    AddOrderResponse? requestOrder =
+        await orderService.orderRequest(requestFix);
+    if (requestOrder != null) {
       isSuccess = true.obs;
       OrderHive tempOrderHive = OrderHive();
       tempOrderHive.idUser = userBox.values.first.idUser;
       orderBox.put(orderBox.keys.first, tempOrderHive);
+      idOfNewOrder = requestOrder.dataOrder?.idOrder ?? 0;
+      Get.snackbar("Berhasil memesan menu",
+          "Berhasil memesan ${requestFix.menu?.length ?? 0} menu dengan harga Rp ${requestFix.totalBayar}");
+      // Get.close(1);
     } else {
       // OrderHive tempOrderHive = orderBox.values.first;
       // orderBox.put(orderBox.keys.first, tempOrderHive);
-      
+
     }
     update();
   }

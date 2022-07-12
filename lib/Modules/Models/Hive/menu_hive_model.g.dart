@@ -27,13 +27,16 @@ class MenuHiveAdapter extends TypeAdapter<MenuHive> {
       ..nama = fields[7] as String
       ..gambar = fields[8] as String
       ..catatan = fields[9] as String
-      ..kategori = fields[10] as String;
+      ..kategori = fields[10] as String
+      ..hargaAsli = fields[11] as int?
+      ..hargaLevel = fields[12] as int?
+      ..totalHargaTopping = fields[13] as int?;
   }
 
   @override
   void write(BinaryWriter writer, MenuHive obj) {
     writer
-      ..writeByte(11)
+      ..writeByte(14)
       ..writeByte(0)
       ..write(obj.id_menu)
       ..writeByte(1)
@@ -55,7 +58,13 @@ class MenuHiveAdapter extends TypeAdapter<MenuHive> {
       ..writeByte(9)
       ..write(obj.catatan)
       ..writeByte(10)
-      ..write(obj.kategori);
+      ..write(obj.kategori)
+      ..writeByte(11)
+      ..write(obj.hargaAsli)
+      ..writeByte(12)
+      ..write(obj.hargaLevel)
+      ..writeByte(13)
+      ..write(obj.totalHargaTopping);
   }
 
   @override

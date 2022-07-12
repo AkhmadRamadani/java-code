@@ -12,4 +12,6 @@ class EndPointConst{
   String getOrderByStatus = "order/status/";
   String getOrderByUser = "order/user/";
   String addOrder = "order/add";
+  String getOrderDetal = "order/detail/";
+  String getHistoryOrder = 'order/history/';
 }

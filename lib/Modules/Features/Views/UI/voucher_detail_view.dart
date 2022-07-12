@@ -5,9 +5,11 @@ import 'package:javacode/Constant/Core/assets_const.dart';
 import 'package:javacode/Constant/Core/colors_const.dart';
 import 'package:javacode/Modules/Features/Controllers/cart_controller.dart';
 import 'package:javacode/Modules/Features/Controllers/voucher_controller.dart';
+import 'package:javacode/Modules/Features/Views/Components/app_bar_components.dart';
 
 class VoucherDetailView extends GetView<VoucherController> {
-  VoucherDetailView({Key? key, required this.voucherController}) : super(key: key);
+  VoucherDetailView({Key? key, required this.voucherController})
+      : super(key: key);
 
   final AssetsConst assetsConst = AssetsConst();
   final ColorConst colorConst = ColorConst();
@@ -19,32 +21,9 @@ class VoucherDetailView extends GetView<VoucherController> {
       builder: (value) {
         return Scaffold(
           backgroundColor: colorConst.backgroundCardColor,
-          appBar: AppBar(
-              backgroundColor: Colors.white,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(
-                  bottom: Radius.circular(30),
-                ),
-              ),
-              leading: Icon(
-                Icons.arrow_back_ios_new_rounded,
-                color: colorConst.textColor,
-              ),
-              centerTitle: true,
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    "Detail Voucher",
-                    style: TextStyle(
-                      fontSize: 22,
-                      color: colorConst.textColor,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  )
-                ],
-              )),
+          appBar: AppBarComponents(
+            title: 'Detail Voucher',
+          ),
           body: SafeArea(
             child: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {

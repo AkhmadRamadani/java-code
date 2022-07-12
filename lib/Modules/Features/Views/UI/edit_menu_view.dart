@@ -3,7 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:javacode/Constant/Core/assets_const.dart';
 import 'package:javacode/Constant/Core/colors_const.dart';
+import 'package:javacode/Modules/Features/Controllers/cart_controller.dart';
 import 'package:javacode/Modules/Features/Controllers/edit_menu_controller.dart';
+import 'package:javacode/Modules/Features/Views/Components/app_bar_components.dart';
 import 'package:javacode/Modules/Features/Views/Components/button_components.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -18,161 +20,121 @@ class EditMenuView extends GetView<EditMenuController> {
     return GetBuilder<EditMenuController>(
         init: EditMenuController(index: index),
         builder: (value) {
-          return Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.white,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(
-                  bottom: Radius.circular(30),
-                ),
+          return WillPopScope(
+            onWillPop: () async {
+              CartController cartController = Get.find();
+              if(value.isUpdated == false){
+                print('here');
+                value.orderBox.values.first.menu![index] = value.tempMenuHive; 
+                print(value.tempMenuHive.jumlah.toString());
+              }
+              cartController.update();
+              // value.orderBox.
+              return true;
+            },
+            child: Scaffold(
+              appBar: AppBarComponents(
+                title: 'Detail Menu',
               ),
-              leading: Icon(
-                Icons.arrow_back_ios_new_rounded,
-                color: colorConst.textColor,
-              ),
-              centerTitle: true,
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    "Detail Menu",
-                    style: TextStyle(
-                      fontSize: 22,
-                      color: colorConst.textColor,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            body: SafeArea(
-              child: LayoutBuilder(
-                  builder: (BuildContext context, BoxConstraints constraints) {
-                return value.isLoading.isTrue
-                    ? Shimmer.fromColors(
-                        baseColor: Colors.grey[300]!,
-                        highlightColor: Colors.grey[100]!,
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(25.0),
-                              child: Container(
-                                width: 240,
-                                height: 180,
-                                color: Colors.white,
-                              ),
-                            ),
-                            ConstrainedBox(
-                              constraints: BoxConstraints(
-                                  minHeight: constraints.maxHeight - 230),
-                              child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                decoration: const BoxDecoration(
+              body: SafeArea(
+                child: LayoutBuilder(builder:
+                    (BuildContext context, BoxConstraints constraints) {
+                  return value.isLoading.isTrue
+                      ? Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(25.0),
+                                child: Container(
+                                  width: 240,
+                                  height: 180,
                                   color: Colors.white,
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(30),
-                                    topRight: Radius.circular(30),
+                                ),
+                              ),
+                              ConstrainedBox(
+                                constraints: BoxConstraints(
+                                    minHeight: constraints.maxHeight - 230),
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(30),
+                                      topRight: Radius.circular(30),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      )
-                    : SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(25.0),
-                              child: Container(
-                                width: 240,
-                                height: 180,
-                                child: Image.network(
-                                    value.menuDetailResponse?.data?.menu
-                                            ?.foto ??
-                                        "https://i.ibb.co/R9kJtny/1637916829.png",
-                                    fit: BoxFit.contain),
-                              ),
-                            ),
-                            ConstrainedBox(
-                              constraints: BoxConstraints(
-                                  minHeight: constraints.maxHeight - 230),
-                              child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(30),
-                                    topRight: Radius.circular(30),
-                                  ),
+                            ],
+                          ),
+                        )
+                      : SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(25.0),
+                                child: Container(
+                                  width: 240,
+                                  height: 180,
+                                  child: Image.network(
+                                      value.menuDetailResponse?.data?.menu
+                                              ?.foto ??
+                                          "https://i.ibb.co/R9kJtny/1637916829.png",
+                                      fit: BoxFit.contain),
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 25,
-                                    vertical: 45,
+                              ),
+                              ConstrainedBox(
+                                constraints: BoxConstraints(
+                                    minHeight: constraints.maxHeight - 230),
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(30),
+                                      topRight: Radius.circular(30),
+                                    ),
                                   ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            value.menuDetailResponse?.data?.menu
-                                                    ?.nama ??
-                                                "Judul Menu",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 24,
-                                              color: colorConst.secondaryColor,
-                                            ),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              GestureDetector(
-                                                onTap: () {
-                                                  value.subtractAmount();
-                                                },
-                                                child: Container(
-                                                  width: 20,
-                                                  height: 20,
-                                                  decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                      width: 1,
-                                                      color: Color.fromRGBO(
-                                                          0, 154, 173, 1),
-                                                    ),
-                                                  ),
-                                                  alignment: Alignment.center,
-                                                  child: Icon(
-                                                    Icons.remove,
-                                                    size: 12,
-                                                    color: colorConst
-                                                        .secondaryColor,
-                                                  ),
-                                                ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 25,
+                                      vertical: 45,
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              value.menuDetailResponse?.data
+                                                      ?.menu?.nama ??
+                                                  "Judul Menu",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 24,
+                                                color:
+                                                    colorConst.secondaryColor,
                                               ),
-                                              SizedBox(width: 10),
-                                              Text(value.menuHive.jumlah
-                                                  .toString()),
-                                              SizedBox(width: 10),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  value.addAmount();
-                                                },
-                                                child: Container(
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    value.subtractAmount();
+                                                  },
+                                                  child: Container(
                                                     width: 20,
                                                     height: 20,
                                                     decoration: BoxDecoration(
-                                                      color: colorConst
-                                                          .secondaryColor,
                                                       border: Border.all(
                                                         width: 1,
                                                         color: Color.fromRGBO(
@@ -181,236 +143,61 @@ class EditMenuView extends GetView<EditMenuController> {
                                                     ),
                                                     alignment: Alignment.center,
                                                     child: Icon(
-                                                      Icons.add,
+                                                      Icons.remove,
                                                       size: 12,
-                                                      color: Colors.white,
-                                                    )),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text(
-                                        value.menuDetailResponse?.data?.menu
-                                                ?.deskripsi ??
-                                            "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      const Divider(),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Container(
-                                                width: 18,
-                                                height: 18,
-                                                child: Image.asset(
-                                                  assetsConst.imagesPath +
-                                                      assetsConst.hargaIconBlue,
-                                                  fit: BoxFit.contain,
+                                                      color: colorConst
+                                                          .secondaryColor,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                              SizedBox(
-                                                width: 8,
-                                              ),
-                                              Text(
-                                                "Harga",
-                                                style: TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w600,
+                                                SizedBox(width: 10),
+                                                Text(value.menuHive.jumlah
+                                                    .toString()),
+                                                SizedBox(width: 10),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    value.addAmount();
+                                                  },
+                                                  child: Container(
+                                                      width: 20,
+                                                      height: 20,
+                                                      decoration: BoxDecoration(
+                                                        color: colorConst
+                                                            .secondaryColor,
+                                                        border: Border.all(
+                                                          width: 1,
+                                                          color: Color.fromRGBO(
+                                                              0, 154, 173, 1),
+                                                        ),
+                                                      ),
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Icon(
+                                                        Icons.add,
+                                                        size: 12,
+                                                        color: Colors.white,
+                                                      )),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                          Text(
-                                            "Rp. ${value.menuHive.harga ?? "0.00"}",
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w800,
-                                              color: Color.fromRGBO(
-                                                  0, 154, 173, 1),
+                                              ],
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      const Divider(),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      value.menuDetailResponse!.data!.level!
-                                              .isNotEmpty
-                                          ? Column(
-                                              children: [
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    showLevelBottomSheet(
-                                                        context, value);
-                                                  },
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Row(
-                                                        children: [
-                                                          Container(
-                                                            width: 18,
-                                                            height: 18,
-                                                            child: Image.asset(
-                                                              assetsConst
-                                                                      .imagesPath +
-                                                                  assetsConst
-                                                                      .levelIconBlue,
-                                                              fit: BoxFit
-                                                                  .contain,
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            width: 8,
-                                                          ),
-                                                          Text(
-                                                            "Level",
-                                                            style: TextStyle(
-                                                              fontSize: 20,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Row(
-                                                        children: [
-                                                          Text(
-                                                            value.menuHive
-                                                                .keteranganLevel,
-                                                            style: TextStyle(
-                                                                fontSize: 20,
-                                                                color: colorConst
-                                                                    .textColor),
-                                                          ),
-                                                          SizedBox(
-                                                            width: 12,
-                                                          ),
-                                                          Icon(
-                                                              Icons
-                                                                  .chevron_right_rounded,
-                                                              size: 18,
-                                                              color: colorConst
-                                                                  .textColor)
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  height: 10,
-                                                ),
-                                                const Divider(),
-                                                const SizedBox(
-                                                  height: 10,
-                                                ),
-                                              ],
-                                            )
-                                          : Container(),
-                                      value.menuDetailResponse!.data!.topping!
-                                              .isNotEmpty
-                                          ? Column(
-                                              children: [
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    showTopingBottomSheet(
-                                                        context, value);
-                                                  },
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Row(
-                                                        children: [
-                                                          Container(
-                                                            width: 18,
-                                                            height: 18,
-                                                            child: Image.asset(
-                                                              assetsConst
-                                                                      .imagesPath +
-                                                                  assetsConst
-                                                                      .topingIconBlue,
-                                                              fit: BoxFit
-                                                                  .contain,
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            width: 8,
-                                                          ),
-                                                          Text(
-                                                            "Toping",
-                                                            style: TextStyle(
-                                                              fontSize: 20,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Row(
-                                                        children: [
-                                                          Text(
-                                                            value.getToppingName(value
-                                                                .menuHive
-                                                                .toppingDetail!
-                                                                .map((e) => e
-                                                                    .keterangan)
-                                                                .toList()),
-                                                            style: TextStyle(
-                                                                fontSize: 20,
-                                                                color: colorConst
-                                                                    .textColor),
-                                                          ),
-                                                          SizedBox(
-                                                            width: 12,
-                                                          ),
-                                                          Icon(
-                                                              Icons
-                                                                  .chevron_right_rounded,
-                                                              size: 18,
-                                                              color: colorConst
-                                                                  .textColor)
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  height: 10,
-                                                ),
-                                                const Divider(),
-                                                const SizedBox(
-                                                  height: 10,
-                                                ),
-                                              ],
-                                            )
-                                          : Container(),
-                                      GestureDetector(
-                                        onTap: () {
-                                          showNoteBottomSheet(context, value);
-                                        },
-                                        child: Row(
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text(
+                                          value.menuDetailResponse?.data?.menu
+                                                  ?.deskripsi ??
+                                              "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        const Divider(),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
@@ -422,7 +209,7 @@ class EditMenuView extends GetView<EditMenuController> {
                                                   child: Image.asset(
                                                     assetsConst.imagesPath +
                                                         assetsConst
-                                                            .noteIconBlue,
+                                                            .hargaIconBlue,
                                                     fit: BoxFit.contain,
                                                   ),
                                                 ),
@@ -430,7 +217,7 @@ class EditMenuView extends GetView<EditMenuController> {
                                                   width: 8,
                                                 ),
                                                 Text(
-                                                  "Catatan",
+                                                  "Harga",
                                                   style: TextStyle(
                                                     fontSize: 20,
                                                     fontWeight: FontWeight.w600,
@@ -438,68 +225,280 @@ class EditMenuView extends GetView<EditMenuController> {
                                                 ),
                                               ],
                                             ),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  value.menuHive.catatan
-                                                          .isNotEmpty
-                                                      ? value.menuHive.catatan
-                                                                  .length >
-                                                              20
-                                                          ? value.menuHive
-                                                                  .catatan
-                                                                  .substring(
-                                                                      0, 17) +
-                                                              "..."
-                                                          : value
-                                                              .menuHive.catatan
-                                                      : "",
-                                                  style: TextStyle(
-                                                      fontSize: 20,
-                                                      color:
-                                                          colorConst.textColor),
-                                                ),
-                                                SizedBox(
-                                                  width: 12,
-                                                ),
-                                                Icon(
-                                                    Icons.chevron_right_rounded,
-                                                    size: 18,
-                                                    color: colorConst.textColor)
-                                              ],
+                                            Text(
+                                              "Rp. ${value.menuHive.harga ?? "0.00"}",
+                                              style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w800,
+                                                color: Color.fromRGBO(
+                                                    0, 154, 173, 1),
+                                              ),
                                             ),
                                           ],
                                         ),
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      const Divider(),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          value.simpanEditMenu();
-                                        },
-                                        child: ButtonComponents(
-                                          buttonTitle: "Simpan",
+                                        const SizedBox(
+                                          height: 10,
                                         ),
-                                      )
-                                    ],
+                                        const Divider(),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        value.menuDetailResponse!.data!.level!
+                                                .isNotEmpty
+                                            ? Column(
+                                                children: [
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      showLevelBottomSheet(
+                                                          context, value);
+                                                    },
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Row(
+                                                          children: [
+                                                            Container(
+                                                              width: 18,
+                                                              height: 18,
+                                                              child:
+                                                                  Image.asset(
+                                                                assetsConst
+                                                                        .imagesPath +
+                                                                    assetsConst
+                                                                        .levelIconBlue,
+                                                                fit: BoxFit
+                                                                    .contain,
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                              width: 8,
+                                                            ),
+                                                            Text(
+                                                              "Level",
+                                                              style: TextStyle(
+                                                                fontSize: 20,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            Text(
+                                                              value.menuHive
+                                                                  .keteranganLevel,
+                                                              style: TextStyle(
+                                                                  fontSize: 20,
+                                                                  color: colorConst
+                                                                      .textColor),
+                                                            ),
+                                                            SizedBox(
+                                                              width: 12,
+                                                            ),
+                                                            Icon(
+                                                                Icons
+                                                                    .chevron_right_rounded,
+                                                                size: 18,
+                                                                color: colorConst
+                                                                    .textColor)
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  const Divider(),
+                                                  const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                ],
+                                              )
+                                            : Container(),
+                                        value.menuDetailResponse!.data!.topping!
+                                                .isNotEmpty
+                                            ? Column(
+                                                children: [
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      showTopingBottomSheet(
+                                                          context, value);
+                                                    },
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Row(
+                                                          children: [
+                                                            Container(
+                                                              width: 18,
+                                                              height: 18,
+                                                              child:
+                                                                  Image.asset(
+                                                                assetsConst
+                                                                        .imagesPath +
+                                                                    assetsConst
+                                                                        .topingIconBlue,
+                                                                fit: BoxFit
+                                                                    .contain,
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                              width: 8,
+                                                            ),
+                                                            Text(
+                                                              "Toping",
+                                                              style: TextStyle(
+                                                                fontSize: 20,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            Text(
+                                                              value.getToppingName(value
+                                                                  .menuHive
+                                                                  .toppingDetail!
+                                                                  .map((e) => e
+                                                                      .keterangan)
+                                                                  .toList()),
+                                                              style: TextStyle(
+                                                                  fontSize: 20,
+                                                                  color: colorConst
+                                                                      .textColor),
+                                                            ),
+                                                            SizedBox(
+                                                              width: 12,
+                                                            ),
+                                                            Icon(
+                                                                Icons
+                                                                    .chevron_right_rounded,
+                                                                size: 18,
+                                                                color: colorConst
+                                                                    .textColor)
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  const Divider(),
+                                                  const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                ],
+                                              )
+                                            : Container(),
+                                        GestureDetector(
+                                          onTap: () {
+                                            showNoteBottomSheet(context, value);
+                                          },
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                    width: 18,
+                                                    height: 18,
+                                                    child: Image.asset(
+                                                      assetsConst.imagesPath +
+                                                          assetsConst
+                                                              .noteIconBlue,
+                                                      fit: BoxFit.contain,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 8,
+                                                  ),
+                                                  Text(
+                                                    "Catatan",
+                                                    style: TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                    value.menuHive.catatan
+                                                            .isNotEmpty
+                                                        ? value.menuHive.catatan
+                                                                    .length >
+                                                                20
+                                                            ? value.menuHive
+                                                                    .catatan
+                                                                    .substring(
+                                                                        0, 17) +
+                                                                "..."
+                                                            : value.menuHive
+                                                                .catatan
+                                                        : "",
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        color: colorConst
+                                                            .textColor),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 12,
+                                                  ),
+                                                  Icon(
+                                                      Icons
+                                                          .chevron_right_rounded,
+                                                      size: 18,
+                                                      color:
+                                                          colorConst.textColor)
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        const Divider(),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            value.simpanEditMenu();
+                                          },
+                                          child: ButtonComponents(
+                                            buttonTitle: "Simpan",
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      );
-              }),
+                            ],
+                          ),
+                        );
+                }),
+              ),
             ),
           );
         });
   }
-  
+
   PersistentBottomSheetController showTopingBottomSheet(
       BuildContext context, EditMenuController menu) {
     return showBottomSheet(

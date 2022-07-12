@@ -42,7 +42,7 @@ class Order {
     int? idOrder;
     String? noStruk;
     String? nama;
-    double? totalBayar;
+    int? totalBayar;
     String? tanggal;
     int? status;
     List<MenuOrder>? menu = [];
@@ -88,7 +88,7 @@ class MenuOrder {
     String? foto;
     int? jumlah;
     String? harga;
-    double? total;
+    int? total;
     String? catatan;
 
     factory MenuOrder.fromJson(Map<String, dynamic> json) => MenuOrder(

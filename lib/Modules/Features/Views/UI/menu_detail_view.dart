@@ -6,6 +6,7 @@ import 'package:javacode/Constant/Core/assets_const.dart';
 import 'package:javacode/Constant/Core/colors_const.dart';
 import 'package:javacode/Modules/Features/Controllers/beranda_controller.dart';
 import 'package:javacode/Modules/Features/Controllers/menu_controller.dart';
+import 'package:javacode/Modules/Features/Views/Components/app_bar_components.dart';
 import 'package:javacode/Modules/Features/Views/Components/button_components.dart';
 import 'package:javacode/Modules/Models/Hive/menu_hive_model.dart';
 import 'package:javacode/Modules/Models/menu_response_model.dart';
@@ -37,33 +38,9 @@ class DetailMenuView extends GetView<MenuController> {
                       child: Icon(Icons.share),
                     )
                   : Container(),
-              appBar: AppBar(
-                backgroundColor: Colors.white,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(
-                    bottom: Radius.circular(30),
-                  ),
+              appBar: AppBarComponents(
+                  title: 'Detail Menu',
                 ),
-                leading: Icon(
-                  Icons.arrow_back_ios_new_rounded,
-                  color: colorConst.textColor,
-                ),
-                centerTitle: true,
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      "Detail Menu",
-                      style: TextStyle(
-                        fontSize: 22,
-                        color: colorConst.textColor,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    )
-                  ],
-                ),
-              ),
               body: SafeArea(
                 child: LayoutBuilder(builder:
                     (BuildContext context, BoxConstraints constraints) {

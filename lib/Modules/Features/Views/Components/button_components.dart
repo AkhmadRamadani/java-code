@@ -4,7 +4,12 @@ import 'package:javacode/Constant/Core/assets_const.dart';
 import 'package:javacode/Constant/Core/colors_const.dart';
 
 class ButtonComponents extends StatelessWidget {
-  ButtonComponents({Key? key, this.buttonTitle, this.iconPath, this.buttonColor, this.textColor})
+  ButtonComponents(
+      {Key? key,
+      this.buttonTitle,
+      this.iconPath,
+      this.buttonColor,
+      this.textColor})
       : super(key: key);
   final String? buttonTitle;
   final String? iconPath;
@@ -20,7 +25,7 @@ class ButtonComponents extends StatelessWidget {
             height: 44,
             padding: EdgeInsets.symmetric(horizontal: 24),
             decoration: BoxDecoration(
-              color: buttonColor?? Colors.white,
+              color: buttonColor ?? Colors.white,
               borderRadius: BorderRadius.circular(50),
               boxShadow: [
                 BoxShadow(
@@ -41,8 +46,8 @@ class ButtonComponents extends StatelessWidget {
                       padding: EdgeInsets.all(8.0),
                       child: SizedBox(
                         height: 20,
-                        child: SvgPicture.asset(
-                            iconPath ?? assetsConst.svgPath + assetsConst.googleIcons),
+                        child: SvgPicture.asset(iconPath ??
+                            assetsConst.svgPath + assetsConst.googleIcons),
                       ),
                     ),
                   ),
@@ -64,7 +69,7 @@ class ButtonComponents extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             height: 44,
             decoration: BoxDecoration(
-              color: colorConst.primaryColor,
+              color: buttonColor ?? colorConst.primaryColor,
               borderRadius: BorderRadius.circular(50),
             ),
             alignment: Alignment.center,
@@ -72,7 +77,7 @@ class ButtonComponents extends StatelessWidget {
               buttonTitle ?? "Title",
               style: TextStyle(
                 fontSize: 16,
-                color: Colors.white,
+                color: textColor ?? Colors.white,
                 fontWeight: FontWeight.bold,
               ),
             ),
