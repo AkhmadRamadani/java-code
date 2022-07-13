@@ -28,7 +28,7 @@ class ProfileView extends GetView<ProfileController> {
             children: [
               Scaffold(
                 appBar: AppBarComponents(
-                  title: 'Profil',
+                  title: 'profil'.tr,
                   showBackPress: false,
                 ),
                 body: Stack(
@@ -86,7 +86,7 @@ class ProfileView extends GetView<ProfileController> {
                                                   margin: const EdgeInsets.only(
                                                       left: 8),
                                                   child: Text(
-                                                    "Verifikasi KTP mu sekarang! ",
+                                                    "verif_id".tr,
                                                     style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.w400,
@@ -104,7 +104,7 @@ class ProfileView extends GetView<ProfileController> {
                                           margin:
                                               const EdgeInsets.only(top: 16),
                                           child: Text(
-                                            "Info Akun",
+                                            "acc_info".tr,
                                             style: TextStyle(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 20,
@@ -118,7 +118,7 @@ class ProfileView extends GetView<ProfileController> {
                                           margin:
                                               const EdgeInsets.only(top: 16),
                                           child: Text(
-                                            "Info Lainnya",
+                                            "other_info".tr,
                                             style: TextStyle(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 20,
@@ -127,7 +127,7 @@ class ProfileView extends GetView<ProfileController> {
                                           ),
                                         ),
                                         _builtOtherInfo(context, value),
-                                        _buildLogoutButton(context)
+                                        _buildLogoutButton(context, value)
                                       ],
                                     ),
                                   )
@@ -176,7 +176,7 @@ class ProfileView extends GetView<ProfileController> {
                                               2.7,
                                           child: ButtonComponents(
                                             buttonColor: colorConst.dangerColor,
-                                            buttonTitle: "Batal",
+                                            buttonTitle: "cancel".tr,
                                           ),
                                         ),
                                       ),
@@ -190,7 +190,7 @@ class ProfileView extends GetView<ProfileController> {
                                                   .width /
                                               2.7,
                                           child: ButtonComponents(
-                                            buttonTitle: "Upload",
+                                            buttonTitle: "upload".tr,
                                           ),
                                         ),
                                       )
@@ -265,11 +265,7 @@ class ProfileView extends GetView<ProfileController> {
                             elevation: 24,
                             context: context,
                             builder: (context) {
-                              return StatefulBuilder(
-                                builder: (context, setState) =>
-                                    _showBottomSheetImagePicker(
-                                        context, setState),
-                              );
+                              return _showBottomSheetImagePicker(context);
                             },
                           );
                         },
@@ -287,7 +283,7 @@ class ProfileView extends GetView<ProfileController> {
                                     ),
                                     color: colorConst.secondaryColor,
                                     child: Text(
-                                      'Ubah',
+                                      'edit'.tr,
                                       style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
@@ -325,7 +321,7 @@ class ProfileView extends GetView<ProfileController> {
                               color: colorConst.secondaryColor,
                               borderRadius: BorderRadius.circular(12)),
                           child: Text(
-                            'Simpan',
+                            'save'.tr,
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w400,
@@ -368,7 +364,7 @@ class ProfileView extends GetView<ProfileController> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Info Perangkat",
+                  "device_info".tr,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
@@ -404,7 +400,7 @@ class ProfileView extends GetView<ProfileController> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Versi",
+                  "version".tr,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
@@ -435,16 +431,21 @@ class ProfileView extends GetView<ProfileController> {
         ));
   }
 
-  Row _buildLogoutButton(BuildContext context) {
+  Row _buildLogoutButton(BuildContext context, ProfileController controller) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           margin: const EdgeInsets.symmetric(vertical: 16),
-          child: Container(
-            width: 200,
-            child: ButtonComponents(
-              buttonTitle: 'Logout',
+          child: InkWell(
+            onTap: () {
+              controller.logout();
+            },
+            child: Container(
+              width: 200,
+              child: ButtonComponents(
+                buttonTitle: 'logout'.tr,
+              ),
             ),
           ),
         ),
@@ -485,7 +486,7 @@ class ProfileView extends GetView<ProfileController> {
               Container(
                 margin: const EdgeInsets.only(left: 8),
                 child: Text(
-                  "Penilaian",
+                  "rating".tr,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
@@ -497,7 +498,7 @@ class ProfileView extends GetView<ProfileController> {
           Container(
             width: 135,
             child: ButtonComponents(
-              buttonTitle: "Nilai Sekarang",
+              buttonTitle: "rate_now".tr,
             ),
           ),
         ],
@@ -530,8 +531,13 @@ class ProfileView extends GetView<ProfileController> {
                 elevation: 24,
                 context: context,
                 builder: (context) {
-                  return _showBottomSheetUpdateProfile(context, 'nama', "Nama",
-                      value.userDetail?.userDetailData?.nama ?? "", value);
+                  return _showBottomSheetUpdateProfile(
+                    context,
+                    'nama',
+                    "name".tr,
+                    value.userDetail?.userDetailData?.nama ?? "",
+                    value,
+                  );
                 },
               );
             },
@@ -539,7 +545,7 @@ class ProfileView extends GetView<ProfileController> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Nama",
+                  "name".tr,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
@@ -580,7 +586,7 @@ class ProfileView extends GetView<ProfileController> {
                   return _showBottomSheetUpdateProfile(
                       context,
                       'tgl_lahir',
-                      "Tanggal Lahir",
+                      "date_of_birth".tr,
                       value.userDetail?.userDetailData?.tglLahir ?? "",
                       value,
                       datePicker: true);
@@ -591,7 +597,7 @@ class ProfileView extends GetView<ProfileController> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Tanggal Lahir",
+                  "date_of_birth".tr,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
@@ -632,7 +638,7 @@ class ProfileView extends GetView<ProfileController> {
                   return _showBottomSheetUpdateProfile(
                     context,
                     'telepon',
-                    "No Telepon",
+                    "phone_number".tr,
                     value.userDetail?.userDetailData?.telepon ?? "",
                     value,
                     keyboardType: TextInputType.phone,
@@ -644,7 +650,7 @@ class ProfileView extends GetView<ProfileController> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "No Telepon",
+                  "phone_number".tr,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
@@ -678,19 +684,22 @@ class ProfileView extends GetView<ProfileController> {
           ),
           InkWell(
             onTap: () {
-              showBottomSheet(
-                elevation: 24,
-                context: context,
-                builder: (context) {
-                  return _showBottomSheetUpdateProfile(
-                      context,
-                      'email',
-                      'Email',
-                      value.userDetail?.userDetailData?.email ?? "",
-                      value,
-                      keyboardType: TextInputType.emailAddress);
-                },
-              );
+              controller.userData!.isGoogle == 1
+                  ? Get.snackbar(
+                      "cant_edit_email_title".tr, "cant_edit_email_message".tr)
+                  : showBottomSheet(
+                      elevation: 24,
+                      context: context,
+                      builder: (context) {
+                        return _showBottomSheetUpdateProfile(
+                            context,
+                            'email',
+                            'Email',
+                            value.userDetail?.userDetailData?.email ?? "",
+                            value,
+                            keyboardType: TextInputType.emailAddress);
+                      },
+                    );
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -744,7 +753,7 @@ class ProfileView extends GetView<ProfileController> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Ubah Pin",
+                  "change_pin".tr,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
@@ -784,9 +793,9 @@ class ProfileView extends GetView<ProfileController> {
                   elevation: 24,
                   context: context,
                   builder: (context) {
-                    return StatefulBuilder(
-                      builder: (context, setState) =>
-                          _showBottomSheetChangeLanguage(context, setState),
+                    return _showBottomSheetChangeLanguage(
+                      context,
+                      controller,
                     );
                   },
                 );
@@ -795,7 +804,7 @@ class ProfileView extends GetView<ProfileController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Ganti Bahasa",
+                    "change_lang".tr,
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 16,
@@ -804,7 +813,7 @@ class ProfileView extends GetView<ProfileController> {
                   Row(
                     children: [
                       Text(
-                        "IND",
+                        controller.selectedLanguage!.toUpperCase(),
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
@@ -943,7 +952,7 @@ class ProfileView extends GetView<ProfileController> {
   }
 
   Wrap _showBottomSheetChangeLanguage(
-      BuildContext context, StateSetter setState) {
+      BuildContext context, ProfileController controller) {
     return Wrap(
       children: [
         Container(
@@ -964,7 +973,7 @@ class ProfileView extends GetView<ProfileController> {
               Container(
                 margin: const EdgeInsets.only(top: 12),
                 child: Text(
-                  "Ganti Bahasa",
+                  "change_lang".tr,
                   style: GoogleFonts.montserrat(
                     fontWeight: FontWeight.w700,
                     fontSize: 18,
@@ -978,7 +987,9 @@ class ProfileView extends GetView<ProfileController> {
                   children: [
                     Expanded(
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          controller.updateLanguage('id');
+                        },
                         child: Container(
                           margin: const EdgeInsets.only(right: 8),
                           padding: const EdgeInsets.symmetric(
@@ -989,8 +1000,9 @@ class ProfileView extends GetView<ProfileController> {
                             borderRadius: const BorderRadius.all(
                               Radius.circular(12),
                             ),
-                            color: colorConst.secondaryColor,
-                            // : Colors.white,
+                            color: controller.selectedLanguage == 'id'
+                                ? colorConst.secondaryColor
+                                : Colors.white,
                             boxShadow: [
                               BoxShadow(
                                 spreadRadius: 2,
@@ -1014,11 +1026,12 @@ class ProfileView extends GetView<ProfileController> {
                                 child: Text(
                                   'Indonesia',
                                   style: GoogleFonts.montserrat(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 14,
-                                      color: Colors.white
-                                      // : Colors.black,
-                                      ),
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14,
+                                    color: controller.selectedLanguage == 'id'
+                                        ? Colors.white
+                                        : Colors.black,
+                                  ),
                                 ),
                               ),
                               Container(
@@ -1035,7 +1048,9 @@ class ProfileView extends GetView<ProfileController> {
                     ),
                     Expanded(
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          controller.updateLanguage('en');
+                        },
                         child: Container(
                           margin: const EdgeInsets.only(right: 8),
                           padding: const EdgeInsets.symmetric(
@@ -1046,8 +1061,9 @@ class ProfileView extends GetView<ProfileController> {
                             borderRadius: const BorderRadius.all(
                               Radius.circular(12),
                             ),
-                            color: colorConst.secondaryColor,
-                            // : Colors.white,
+                            color: controller.selectedLanguage == 'en'
+                                ? colorConst.secondaryColor
+                                : Colors.white,
                             boxShadow: [
                               BoxShadow(
                                 spreadRadius: 2,
@@ -1070,11 +1086,12 @@ class ProfileView extends GetView<ProfileController> {
                                 child: Text(
                                   'Inggris',
                                   style: GoogleFonts.montserrat(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 14,
-                                      color: Colors.white
-                                      // : Colors.black,
-                                      ),
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14,
+                                    color: controller.selectedLanguage == 'en'
+                                        ? Colors.white
+                                        : Colors.black,
+                                  ),
                                 ),
                               ),
                               Container(
@@ -1099,7 +1116,7 @@ class ProfileView extends GetView<ProfileController> {
     );
   }
 
-  Wrap _showBottomSheetImagePicker(BuildContext context, StateSetter setState) {
+  Wrap _showBottomSheetImagePicker(BuildContext context) {
     return Wrap(
       children: [
         Container(
@@ -1120,7 +1137,7 @@ class ProfileView extends GetView<ProfileController> {
               Container(
                 margin: const EdgeInsets.only(top: 12),
                 child: Text(
-                  "Pilih Gambar",
+                  "choose_image".tr,
                   style: GoogleFonts.montserrat(
                     fontWeight: FontWeight.w700,
                     fontSize: 18,
@@ -1167,7 +1184,7 @@ class ProfileView extends GetView<ProfileController> {
                               Container(
                                 margin: const EdgeInsets.only(left: 8),
                                 child: Text(
-                                  'Camera',
+                                  'camera'.tr,
                                   style: GoogleFonts.montserrat(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 14,
@@ -1216,7 +1233,7 @@ class ProfileView extends GetView<ProfileController> {
                               Container(
                                 margin: const EdgeInsets.only(left: 8),
                                 child: Text(
-                                  'Galeri',
+                                  'gallery'.tr,
                                   style: GoogleFonts.montserrat(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 14,

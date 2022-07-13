@@ -41,7 +41,7 @@ class CartView extends GetView<CartController> {
                 child: Scaffold(
                   appBar: AppBarComponents(
                     icon: Icons.notifications_outlined,
-                    title: 'Pesanan',
+                    title: 'order'.tr,
                   ),
                   body: Container(
                     height: MediaQuery.of(context).size.height,
@@ -274,7 +274,7 @@ class CartView extends GetView<CartController> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            "Total Pesanan (" +
+                                            "total_order".tr + " (" +
                                                 value.orderBox.values.first
                                                     .menu!.length
                                                     .toString() +
@@ -315,7 +315,7 @@ class CartView extends GetView<CartController> {
                                               GestureDetector(
                                                 onTap: () {
                                                   Get.defaultDialog(
-                                                    title: "Info Diskon",
+                                                    title: "info_diskon".tr,
                                                     titlePadding:
                                                         EdgeInsets.symmetric(
                                                             vertical: 24),
@@ -326,7 +326,7 @@ class CartView extends GetView<CartController> {
                                                       fontWeight:
                                                           FontWeight.w600,
                                                     ),
-                                                    textCancel: "Oke",
+                                                    textCancel: "ok".tr,
                                                     cancel: Padding(
                                                       padding: const EdgeInsets
                                                           .symmetric(
@@ -334,7 +334,7 @@ class CartView extends GetView<CartController> {
                                                         vertical: 12,
                                                       ),
                                                       child: ButtonComponents(
-                                                          buttonTitle: "Oke"),
+                                                          buttonTitle: "ok".tr),
                                                     ),
                                                     content: Container(
                                                       width:
@@ -415,7 +415,7 @@ class CartView extends GetView<CartController> {
                                                             width: 10,
                                                           ),
                                                           Text(
-                                                            "Diskon",
+                                                            "discount".tr,
                                                             style: TextStyle(
                                                               fontWeight:
                                                                   FontWeight
@@ -547,7 +547,7 @@ class CartView extends GetView<CartController> {
                                                   width: 10,
                                                 ),
                                                 Text(
-                                                  "Pembayaran",
+                                                  "payment".tr,
                                                   style: TextStyle(
                                                     fontWeight: FontWeight.w600,
                                                     fontSize: 18,
@@ -590,7 +590,7 @@ class CartView extends GetView<CartController> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                "Total Pembayaran",
+                                                "total_payment".tr,
                                               ),
                                               value.selectedVoucher != null
                                                   ? Text(
@@ -674,7 +674,7 @@ class CartView extends GetView<CartController> {
                                               ),
                                               alignment: Alignment.center,
                                               child: Text(
-                                                "Pesan Sekarang",
+                                                "order_now".tr,
                                                 style: TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.w600,
@@ -721,14 +721,14 @@ class CartView extends GetView<CartController> {
             padding: EdgeInsets.symmetric(vertical: 25, horizontal: 10),
             child: Column(children: [
               Text(
-                "Verifikasi Pesanan",
+                "verif_order".tr,
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               Text(
-                "Masukkan Kode Pin",
+                "insert_pin".tr,
               ),
               SizedBox(
                 height: 36,
@@ -782,14 +782,14 @@ class CartView extends GetView<CartController> {
             padding: EdgeInsets.all(25),
             child: Column(children: [
               Text(
-                "Verifikasi Pesanan",
+                "verif_order".tr,
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               Text(
-                "Finger Print",
+                "finger_print".tr,
               ),
               SizedBox(
                 height: 36,
@@ -821,7 +821,7 @@ class CartView extends GetView<CartController> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12.0),
                       child: Text(
-                        "atau",
+                        "or".tr,
                         style: TextStyle(
                           color: colorConst.greyTextColor,
                           fontSize: 14,
@@ -860,7 +860,7 @@ class CartView extends GetView<CartController> {
                   // });
                 },
                 child: Text(
-                  "Verifikasi Menggunakan PIN",
+                  "verif_using_pin".tr, 
                   style: TextStyle(
                     color: colorConst.secondaryColor,
                     fontWeight: FontWeight.w600,
@@ -903,7 +903,7 @@ class CartView extends GetView<CartController> {
                           width: 10,
                         ),
                         Text(
-                          "Punya Kode Voucher?",
+                          "have_voucher".tr,
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 24,
@@ -915,7 +915,7 @@ class CartView extends GetView<CartController> {
                       height: 8,
                     ),
                     Text(
-                      "Masukkan kode voucher disini",
+                      "insert_voucher_code".tr,
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -946,7 +946,7 @@ class CartView extends GetView<CartController> {
                           ),
                           alignment: Alignment.center,
                           child: Text(
-                            "Validasi Voucher",
+                            "validate_voucher".tr,
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w600,
@@ -982,7 +982,7 @@ class CartView extends GetView<CartController> {
           Container(
             margin: const EdgeInsets.only(top: 16),
             child: Text(
-              'Pesanan Sedang Disiapkan',
+              'order_prepared'.tr ,
               style: TextStyle(
                 fontWeight: FontWeight.w400,
                 fontSize: 22,
@@ -993,7 +993,7 @@ class CartView extends GetView<CartController> {
           Container(
             margin: const EdgeInsets.only(top: 8),
             child: Text(
-              'Kamu dapat melacak pesananmu di fitur Pesanan',
+              'you_can_track'.tr,
               style: TextStyle(
                 fontWeight: FontWeight.w400,
                 fontSize: 16,
@@ -1009,7 +1009,7 @@ class CartView extends GetView<CartController> {
                 Get.to(PesananTrackingView(id: id));
               },
               child: Text(
-                'Oke',
+                'ok'.tr,
                 style: TextStyle(
                   fontWeight: FontWeight.w800,
                   fontSize: 14,

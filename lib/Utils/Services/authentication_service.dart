@@ -33,7 +33,7 @@ class AuthenticationService extends NetworkService {
       LoginResponse loginResponse = LoginResponse.fromJson(response.body);
       return loginResponse;
     } else {
-      Get.snackbar("Login Failed", "Silakan cek email dan password anda!");
+      Get.snackbar("Login Failed", "login_error_message".tr);
       return null;
     }
   }
@@ -53,7 +53,7 @@ class AuthenticationService extends NetworkService {
         return loginResponse;
       } else {
         await logout();
-        Get.snackbar("Login Failed", "Email anda belum terdaftar");
+        Get.snackbar("Login Failed", "email_didnt_registered".tr);
         return null;
       }
     } else {

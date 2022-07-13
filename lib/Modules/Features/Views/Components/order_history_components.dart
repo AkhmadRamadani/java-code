@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:javacode/Config/Localization/locale_strings.dart';
 import 'package:javacode/Constant/Core/assets_const.dart';
 import 'package:javacode/Constant/Core/colors_const.dart';
 import 'package:javacode/Modules/Models/order_response_model.dart';
@@ -93,7 +94,8 @@ class OrderHistoryCardComponents extends StatelessWidget {
                       Text(
                         "Rp." +
                             commonFunctions.formatCurrency
-                                .format(menuHistory.totalBayar).toString(),
+                                .format(menuHistory.totalBayar)
+                                .toString(),
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 18,
@@ -129,7 +131,7 @@ class OrderHistoryCardComponents extends StatelessWidget {
     if (menuHistory.status == 0) {
       icon = Icons.access_time;
       color = const Color.fromRGBO(255, 172, 1, 1);
-      teks = 'Dalam Antrian';
+      teks = "Dalam Antrian";
     } else if (menuHistory.status == 1) {
       icon = Icons.access_time;
       color = const Color.fromRGBO(255, 172, 1, 1);

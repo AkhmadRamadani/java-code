@@ -142,8 +142,12 @@ class HistoryPesananController extends GetxController
                       await historyService.reOrderReques(order);
 
                   if (isSent != null) {
-                    Get.snackbar("Berhasil memesan menu",
-                        "Berhasil memesan ${order.menu?.length ?? 0} menu dengan harga Rp ${order.totalBayar}");
+                    Get.snackbar(
+                        "order_menu_success_title".tr,
+                        "order_menu_success_message".trParams({
+                          'length': '${order.menu?.length ?? 0}',
+                          'totalBayar': ' ${order.totalBayar}'
+                        }));
                     Get.close(1);
                     Get.to(PesananTrackingView(id: isSent.dataOrder!.idOrder!));
                   }

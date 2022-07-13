@@ -40,7 +40,7 @@ class FindLocationView extends GetView<FindLocationController> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Mencari Lokasimu ...",
+                          "find_location".tr,
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.w400,
@@ -72,7 +72,7 @@ class FindLocationView extends GetView<FindLocationController> {
                         Text(
                           value.isLoading.isTrue
                               ? "Loading......."
-                              : value.location?.street ?? "Unresolved location",
+                              : value.location?.street ?? "unresolved_location".tr,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 24,
@@ -91,7 +91,7 @@ class FindLocationView extends GetView<FindLocationController> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 64.0),
                                       child: ButtonComponents(
-                                        buttonTitle: "Recheck",
+                                        buttonTitle: "recheck".tr,
                                       ),
                                     ),
                                   )

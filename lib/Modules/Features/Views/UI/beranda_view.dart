@@ -101,7 +101,7 @@ class BerandaView extends GetView<BerandaController> {
                         prefixIcon: Icon(Icons.search,
                             size: 26, color: colorConst.secondaryColor),
                         border: InputBorder.none,
-                        hintText: "Pencarian",
+                        hintText: "search".tr,
                         hintStyle: TextStyle(
                           color: colorConst.greyTextColor,
                           fontSize: 18,
@@ -133,7 +133,7 @@ class BerandaView extends GetView<BerandaController> {
                                       width: 12,
                                     ),
                                     Text(
-                                      "Promo yang tersedia",
+                                      "available_promo".tr,
                                       style: TextStyle(
                                         fontSize: 22,
                                         fontWeight: FontWeight.w700,
@@ -235,28 +235,28 @@ class BerandaView extends GetView<BerandaController> {
                     value.changeSelectedMenu(0);
                   },
                   child: kategoriChip(value.selectedMenuIndex == 0,
-                      Icons.list_rounded, "Semua Menu"),
+                      Icons.list_rounded, "all_menu".tr),
                 ),
                 GestureDetector(
                   onTap: () {
                     value.changeSelectedMenu(1);
                   },
                   child: kategoriChip(value.selectedMenuIndex == 1,
-                      Icons.flatware_outlined, "Makanan"),
+                      Icons.flatware_outlined, "food".tr),
                 ),
                 GestureDetector(
                   onTap: () {
                     value.changeSelectedMenu(2);
                   },
                   child: kategoriChip(value.selectedMenuIndex == 2,
-                      Icons.local_drink_outlined, "Minuman"),
+                      Icons.local_drink_outlined, "beverage".tr),
                 ),
                 GestureDetector(
                   onTap: () {
                     value.changeSelectedMenu(3);
                   },
                   child: kategoriChip(value.selectedMenuIndex == 3,
-                      Icons.fastfood_outlined, "Snack"),
+                      Icons.fastfood_outlined, "snack".tr),
                 ),
               ],
             ),

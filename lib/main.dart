@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:javacode/Config/Localization/locale_strings.dart';
 import 'package:javacode/Modules/Features/Views/UI/login_view.dart';
 import 'package:javacode/Modules/Features/Views/UI/no_connection_view.dart';
 import 'package:javacode/Modules/Features/Views/UI/splash_view.dart';
@@ -26,18 +27,28 @@ void main() async {
   Hive.registerAdapter(MenuHiveAdapter());
 
   await Hive.openBox<User>('user');
+  await Hive.openBox('selected_language');
   await Hive.openBox<OrderHive>('order');
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+  var languageBox = Hive.box("selected_language");
+  String? selectedLanguage;
+
   @override
   Widget build(BuildContext context) {
+    selectedLanguage = languageBox.get("country_id");
+
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      locale: selectedLanguage != null
+          ? Locale(selectedLanguage!)
+          : Get.deviceLocale,
+      translations: LocaleString(),
+      fallbackLocale: const Locale('en', 'US'),
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
       ),

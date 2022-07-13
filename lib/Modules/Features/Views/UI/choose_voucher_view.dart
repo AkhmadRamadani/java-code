@@ -31,7 +31,7 @@ class ChooseVoucherView extends GetView<VoucherController> {
             child: Scaffold(
               appBar: AppBarComponents(
                   icon: Icons.airplane_ticket_outlined,
-                  title: 'PilihVoucher',
+                  title: 'choose_voucher'.tr,
                 ),
               body: value.isLoading.isTrue
                   ? Shimmer.fromColors(
@@ -122,7 +122,7 @@ class ChooseVoucherView extends GetView<VoucherController> {
                                         Text.rich(
                                           TextSpan(
                                             text:
-                                                'Penggunaan voucher tidak dapat digabung dengan\n',
+                                                'voucher_tac_up'.tr,
                                             children: <InlineSpan>[
                                               TextSpan(
                                                 text:
@@ -161,7 +161,7 @@ class ChooseVoucherView extends GetView<VoucherController> {
                                         ),
                                         alignment: Alignment.center,
                                         child: Text(
-                                          "Oke",
+                                          "ok".tr,
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.w600,

@@ -113,7 +113,7 @@ class EditMenuView extends GetView<EditMenuController> {
                                             Text(
                                               value.menuDetailResponse?.data
                                                       ?.menu?.nama ??
-                                                  "Judul Menu",
+                                                  "Title of Menu",
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w700,
                                                 fontSize: 24,
@@ -217,7 +217,7 @@ class EditMenuView extends GetView<EditMenuController> {
                                                   width: 8,
                                                 ),
                                                 Text(
-                                                  "Harga",
+                                                  "price".tr,
                                                   style: TextStyle(
                                                     fontSize: 20,
                                                     fontWeight: FontWeight.w600,
@@ -353,7 +353,7 @@ class EditMenuView extends GetView<EditMenuController> {
                                                               width: 8,
                                                             ),
                                                             Text(
-                                                              "Toping",
+                                                              "Topping",
                                                               style: TextStyle(
                                                                 fontSize: 20,
                                                                 fontWeight:
@@ -425,7 +425,7 @@ class EditMenuView extends GetView<EditMenuController> {
                                                     width: 8,
                                                   ),
                                                   Text(
-                                                    "Catatan",
+                                                    "note".tr,
                                                     style: TextStyle(
                                                       fontSize: 20,
                                                       fontWeight:
@@ -481,7 +481,7 @@ class EditMenuView extends GetView<EditMenuController> {
                                             value.simpanEditMenu();
                                           },
                                           child: ButtonComponents(
-                                            buttonTitle: "Simpan",
+                                            buttonTitle: "save".tr,
                                           ),
                                         )
                                       ],
@@ -537,7 +537,7 @@ class EditMenuView extends GetView<EditMenuController> {
                           height: 12,
                         ),
                         Text(
-                          "Pilih Toping",
+                          "choose_toping".tr,
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 24,
@@ -620,7 +620,7 @@ class EditMenuView extends GetView<EditMenuController> {
                           height: 12,
                         ),
                         Text(
-                          "Pilih Level",
+                          "choose_level".tr,
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 24,
@@ -743,7 +743,7 @@ class EditMenuView extends GetView<EditMenuController> {
                           height: 12,
                         ),
                         Text(
-                          "Buat Catatan",
+                          "make_note".tr,
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 24,
@@ -761,7 +761,7 @@ class EditMenuView extends GetView<EditMenuController> {
                             LengthLimitingTextInputFormatter(100),
                           ],
                           decoration: InputDecoration(
-                              hintText: "Jangan dibuat pedas, dll",
+                              hintText: "note_example".tr,
                               suffixIcon: Icon(Icons.check_circle_rounded)),
                         ),
                         SizedBox(

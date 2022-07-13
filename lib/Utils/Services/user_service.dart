@@ -54,11 +54,11 @@ class UserService extends NetworkService {
             GetUserDetail.fromJson(response.body);
         return userDetailResponse;
       } else {
-        Get.snackbar("Update Profil Gagal", "Ada kesalahan saat update profil");
+        Get.snackbar("update_profile_error_title".tr, "update_profile_error_message".tr);
         return null;
       }
     } else {
-      Get.snackbar("Update Profil Gagal", "Ada kesalahan saat update profil");
+      Get.snackbar("update_profile_error_title".tr, "update_profile_error_message".tr);
       return null;
     }
   }
@@ -88,11 +88,11 @@ class UserService extends NetworkService {
             GetUserDetail.fromJson(response.body);
         return userDetailResponse;
       } else {
-        Get.snackbar("Update Profil Gagal", "Ada kesalahan saat update profil");
+        Get.snackbar("update_profile_error_title".tr, "update_profile_error_message".tr);
         return null;
       }
     } else {
-      Get.snackbar("Update Profil Gagal", "Ada kesalahan saat update profil");
+      Get.snackbar("update_profile_error_title".tr, "update_profile_error_message".tr);
       return null;
     }
   }
@@ -122,11 +122,11 @@ class UserService extends NetworkService {
             GetUserDetail.fromJson(response.body);
         return userDetailResponse;
       } else {
-        Get.snackbar("Update Profil Gagal", "Ada kesalahan saat update profil");
+        Get.snackbar("update_profile_error_title".tr, "update_profile_error_message".tr);
         return null;
       }
     } else {
-      Get.snackbar("Update Profil Gagal", "Ada kesalahan saat update profil");
+      Get.snackbar("update_profile_error_title".tr, "update_profile_error_message".tr);
       return null;
     }
   }
@@ -156,11 +156,11 @@ class UserService extends NetworkService {
             GetUserDetail.fromJson(response.body);
         return userDetailResponse;
       } else {
-        Get.snackbar("Update Profil Gagal", "Ada kesalahan saat update profil");
+        Get.snackbar("update_profile_error_title".tr, "update_profile_error_message".tr);
         return null;
       }
     } else {
-      Get.snackbar("Update Profil Gagal", "Ada kesalahan saat update profil");
+      Get.snackbar("update_profile_error_title".tr, "update_profile_error_message".tr);
       return null;
     }
   }

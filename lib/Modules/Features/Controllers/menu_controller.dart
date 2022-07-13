@@ -149,7 +149,7 @@ class MenuController extends GetxController {
     print("harga Fix" + menuHive.harga.toString());
     orderBox.put(orderBox.keys.first, tempOrderHive);
     Get.snackbar(
-        "Sukses Menambahkan",
+        "success_add_menu".tr,
         menuHive.jumlah.toString() +
             " " +
             menuHive.nama +

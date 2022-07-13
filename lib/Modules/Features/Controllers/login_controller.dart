@@ -42,15 +42,15 @@ class LoginController extends GetxController {
     var orderBox = Hive.box<OrderHive>('order');
 
     if (email.length == 0) {
-      Get.snackbar("Email Kosong", "Email wajib diisikan");
+      Get.snackbar("email_null_error_title".tr, "email_null_error_message".tr);
       return;
     }
     if (!email.contains("@") && !email.contains(".")) {
-      Get.snackbar("Email Invalid", "Periksa kembali email anda");
+      Get.snackbar("Email Invalid", "check_your_email".tr);
       return;
     }
     if (password.length == 0) {
-      Get.snackbar("Password Invalid", "Panjang password minimal 8 karakter");
+      Get.snackbar("Password Invalid", "password_minim_8_char".tr);
       return;
     }
     isLoading = true.obs;
@@ -96,7 +96,7 @@ class LoginController extends GetxController {
     } else {
       isLoading = false.obs;
       update();
-      Get.snackbar("Login Failed", "Periksa kembali email dan password Anda");
+      Get.snackbar("Login Failed", "login_error_message".tr);
     }
   }
 

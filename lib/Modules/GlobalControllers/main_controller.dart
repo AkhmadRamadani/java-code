@@ -17,7 +17,7 @@ import 'package:uni_links/uni_links.dart';
 class MainController extends GetxController {
   RxBool isLoading = false.obs;
   PromoService promoService = PromoService();
-  
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -102,7 +102,9 @@ class MainController extends GetxController {
       isLoading = false.obs;
       update();
       print('You are disconnected from the internet.');
-      Get.offAll(NoConnection());
+      checkUserLogin();
+      
+      // Get.offAll(NoConnection());
     }
     return await InternetConnectionChecker().hasConnection;
   }

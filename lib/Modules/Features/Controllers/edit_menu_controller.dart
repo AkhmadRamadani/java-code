@@ -66,7 +66,8 @@ class EditMenuController extends MenuController {
       ..level = orderBox.values.first.menu![index].level
       ..topping = orderBox.values.first.menu![index].topping
       ..toppingDetail = orderBox.values.first.menu![index].toppingDetail
-      ..totalHargaTopping = orderBox.values.first.menu![index].totalHargaTopping;
+      ..totalHargaTopping =
+          orderBox.values.first.menu![index].totalHargaTopping;
 
     tempMenuHive = dataTemp;
     menuHive = orderBox.values.first.menu![index];
@@ -84,7 +85,7 @@ class EditMenuController extends MenuController {
         (tempOrderHive.totalBayar! - hargaAwal) + menuHive.harga!;
     orderBox.put(orderBox.keys.first, tempOrderHive);
     Get.snackbar(
-        "Sukses Mengedit Barang",
+        "edit_food_success_title".tr,
         menuHive.jumlah.toString() +
             " " +
             menuHive.nama +

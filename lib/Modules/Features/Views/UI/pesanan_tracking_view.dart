@@ -32,7 +32,7 @@ class PesananTrackingView extends GetView<DetailPesananController> {
                 backPressed: () {
                   Get.offAll(MainView());
                 },
-                title: 'Pesanan',
+                title: 'order'.tr,
               ),
               body: value.isLoading.isTrue
                   ? Shimmer.fromColors(
@@ -197,64 +197,23 @@ class PesananTrackingView extends GetView<DetailPesananController> {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.center,
                                                 children: [
-                                                  GestureDetector(
-                                                    onTap: () {},
-                                                    child: Container(
-                                                      width: 20,
-                                                      height: 20,
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                          width: 1,
-                                                          color: colorConst
-                                                              .secondaryColor,
-                                                        ),
-                                                      ),
-                                                      alignment:
-                                                          Alignment.center,
-                                                      child: Icon(
-                                                        Icons.remove,
-                                                        size: 12,
+                                                  SizedBox(width: 10),
+                                                  Text(
+                                                    (value
+                                                                .orderDetailResponse
+                                                                ?.dataOrder
+                                                                ?.detail?[index]
+                                                                .jumlah ??
+                                                            0)
+                                                        .toString(),
+                                                    style: TextStyle(
                                                         color: colorConst
-                                                            .secondaryColor,
-                                                      ),
-                                                    ),
+                                                            .textColor,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize: 18),
                                                   ),
                                                   SizedBox(width: 10),
-                                                  Text((value
-                                                              .orderDetailResponse
-                                                              ?.dataOrder
-                                                              ?.detail?[index]
-                                                              .jumlah ??
-                                                          0)
-                                                      .toString()),
-                                                  SizedBox(width: 10),
-                                                  GestureDetector(
-                                                    onTap: () {},
-                                                    child: Container(
-                                                        width: 20,
-                                                        height: 20,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: colorConst
-                                                              .secondaryColor,
-                                                          border: Border.all(
-                                                            width: 1,
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    0,
-                                                                    154,
-                                                                    173,
-                                                                    1),
-                                                          ),
-                                                        ),
-                                                        alignment:
-                                                            Alignment.center,
-                                                        child: Icon(
-                                                          Icons.add,
-                                                          size: 12,
-                                                          color: Colors.white,
-                                                        )),
-                                                  ),
                                                 ],
                                               ),
                                             )
@@ -296,7 +255,8 @@ class PesananTrackingView extends GetView<DetailPesananController> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              "Total Pesanan (" +
+                                              "total_order".tr +
+                                                  "(" +
                                                   (value
                                                               .orderDetailResponse
                                                               ?.dataOrder
@@ -369,7 +329,7 @@ class PesananTrackingView extends GetView<DetailPesananController> {
                                                               width: 10,
                                                             ),
                                                             Text(
-                                                              "Diskon",
+                                                              "discount".tr,
                                                               style: TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
@@ -508,7 +468,7 @@ class PesananTrackingView extends GetView<DetailPesananController> {
                                                     width: 10,
                                                   ),
                                                   Text(
-                                                    "Pembayaran",
+                                                    "payment".tr,
                                                     style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.w600,
@@ -548,7 +508,7 @@ class PesananTrackingView extends GetView<DetailPesananController> {
                                                   Row(
                                                     children: [
                                                       Text(
-                                                        "Total Pembayaran",
+                                                        "total_payment".tr,
                                                         style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.w600,
@@ -603,7 +563,7 @@ class PesananTrackingView extends GetView<DetailPesananController> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    "Pesanan kamu sedang disiapkan",
+                                                    "order_is_prepared".tr,
                                                     style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.w600,
@@ -652,7 +612,8 @@ class PesananTrackingView extends GetView<DetailPesananController> {
                                                                   ),
                                                             SizedBox(height: 4),
                                                             Text(
-                                                              "Pesanan diterima",
+                                                              "order_is_accepted"
+                                                                  .tr,
                                                               textAlign:
                                                                   TextAlign
                                                                       .center,
@@ -714,7 +675,8 @@ class PesananTrackingView extends GetView<DetailPesananController> {
                                                                   ),
                                                             SizedBox(height: 4),
                                                             Text(
-                                                              "Silahkan diambil",
+                                                              "you_can_take_it"
+                                                                  .tr,
                                                               textAlign:
                                                                   TextAlign
                                                                       .center,
@@ -767,7 +729,8 @@ class PesananTrackingView extends GetView<DetailPesananController> {
                                                                   ),
                                                             SizedBox(height: 4),
                                                             Text(
-                                                              "Pesanan selesai",
+                                                              "order_is_done"
+                                                                  .tr,
                                                               textAlign:
                                                                   TextAlign
                                                                       .center,

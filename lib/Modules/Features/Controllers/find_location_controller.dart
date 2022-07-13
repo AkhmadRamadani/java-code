@@ -29,7 +29,7 @@ class FindLocationController extends GetxController {
       // Location services are not enabled don't continue
       // accessing the position and request users of the
       // App to enable the location services.
-      return Get.snackbar("Location Error", "Hidupkan layanan lokasi Anda!");
+      return Get.snackbar("location_error_title".tr, "location_error_message".tr);
     }
 
     permission = await Geolocator.checkPermission();
@@ -41,15 +41,15 @@ class FindLocationController extends GetxController {
         // Android's shouldShowRequestPermissionRationale
         // returned true. According to Android guidelines
         // your App should show an explanatory UI now.
-        return Get.snackbar(
-            "Location Permission", "Izin servis lokasi ditolak");
+        return Get.snackbar("location_permission_error_title".tr,
+          "location_permission_error_message".tr);
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever, handle appropriately.
-      return Get.snackbar("Location Permission Error",
-          "Izin servis lokasi ditolak, kami tidak bisa memproses permintaan");
+      return Get.snackbar("location_permission_error_title".tr,
+          "location_permission_error_message".tr);
     }
     position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);

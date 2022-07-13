@@ -51,6 +51,7 @@ class MenuCardComponents extends StatelessWidget {
                             menu.foto ??
                                 "https://i.ibb.co/R9kJtny/1637916829.png",
                             fit: BoxFit.contain,
+                            
                           ),
                         ),
                       ),

@@ -9,7 +9,7 @@ import 'package:javacode/Modules/Features/Controllers/login_controller.dart';
 import 'package:javacode/Modules/Features/Views/Components/button_components.dart';
 import 'package:javacode/Modules/Features/Views/Components/loading_components.dart';
 
-class LoginView extends GetView<LoginController>  {
+class LoginView extends GetView<LoginController> {
   LoginView({Key? key}) : super(key: key);
 
   final LoginController loginController = Get.put(LoginController());
@@ -34,8 +34,8 @@ class LoginView extends GetView<LoginController>  {
                         child: Container(
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height,
-                          child: Image.asset(
-                              assetsConst.imagesPath + assetsConst.pattern1Image),
+                          child: Image.asset(assetsConst.imagesPath +
+                              assetsConst.pattern1Image),
                         ),
                       ),
                       Container(
@@ -48,7 +48,8 @@ class LoginView extends GetView<LoginController>  {
                               height: 80,
                             ),
                             Image.asset(
-                              assetsConst.imagesPath + assetsConst.javaCodeImage,
+                              assetsConst.imagesPath +
+                                  assetsConst.javaCodeImage,
                             ),
                             SizedBox(
                               height: 120,
@@ -56,7 +57,7 @@ class LoginView extends GetView<LoginController>  {
                             Container(
                               width: MediaQuery.of(context).size.width,
                               child: Text(
-                                "Masuk untuk melanjutkan!",
+                                "login_to_continue".tr,
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
                                   fontSize: 24,
@@ -72,7 +73,7 @@ class LoginView extends GetView<LoginController>  {
                               controller: loginController.emailController,
                               decoration: InputDecoration(
                                   hintText: "Lorem.ipsum@gmal.com",
-                                  labelText: "Alamat Email",
+                                  labelText: "email_address".tr,
                                   labelStyle: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w400,
@@ -87,7 +88,7 @@ class LoginView extends GetView<LoginController>  {
                               controller: loginController.passController,
                               decoration: InputDecoration(
                                 hintText: "***********************",
-                                labelText: "Kata Sandi",
+                                labelText: "password".tr,
                                 labelStyle: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
@@ -112,19 +113,22 @@ class LoginView extends GetView<LoginController>  {
                                         onTap: () {
                                           loginController.showPassword();
                                         },
-                                        child: Icon(Icons.remove_red_eye_outlined)),
+                                        child: Icon(
+                                            Icons.remove_red_eye_outlined)),
                               ),
                             ),
                             SizedBox(
                               height: 40,
                             ),
                             GestureDetector(
-                              onTap: (){
+                              onTap: () {
                                 // loginController.logout();
-                                loginController.loginFunction(loginController.emailController.text, loginController.passController.text);
+                                loginController.loginFunction(
+                                    loginController.emailController.text,
+                                    loginController.passController.text);
                               },
                               child: ButtonComponents(
-                                buttonTitle: "Masuk",
+                                buttonTitle: "login".tr,
                               ),
                             ),
                             SizedBox(
@@ -137,10 +141,10 @@ class LoginView extends GetView<LoginController>  {
                                   flex: 1,
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 12.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 12.0),
                                   child: Text(
-                                    "atau",
+                                    "or".tr,
                                     style: TextStyle(
                                       color: colorConst.greyTextColor,
                                       fontSize: 14,
@@ -157,13 +161,13 @@ class LoginView extends GetView<LoginController>  {
                               height: 12,
                             ),
                             GestureDetector(
-                              onTap: (){
+                              onTap: () {
                                 loginController.loginWithGoogle();
                               },
                               child: ButtonComponents(
-                                iconPath:
-                                    assetsConst.svgPath + assetsConst.googleIcons,
-                                buttonTitle: "Masuk Menggunakan Google",
+                                iconPath: assetsConst.svgPath +
+                                    assetsConst.googleIcons,
+                                buttonTitle: "login_using_google".tr,
                               ),
                             ),
                             const SizedBox(
@@ -174,7 +178,7 @@ class LoginView extends GetView<LoginController>  {
                                   assetsConst.svgPath + assetsConst.appleIcons,
                               buttonColor: colorConst.textColor,
                               textColor: Colors.white,
-                              buttonTitle: "Masuk Menggunakan Apple",
+                              buttonTitle: "login_using_apple".tr,
                             )
                           ],
                         ),

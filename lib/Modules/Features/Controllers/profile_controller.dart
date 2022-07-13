@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -32,6 +33,9 @@ class ProfileController extends GetxController {
 
   XFile? pickedFileKTP;
   CroppedFile? croppedFileKTP;
+
+  var languageBox = Hive.box("selected_language");
+  String? selectedLanguage;
 
   PackageInfo packageInfo = PackageInfo(
     appName: '',
@@ -70,7 +74,7 @@ class ProfileController extends GetxController {
     update();
 
     GetUserDetail? getUserDetail = await userService.getUserDetail();
-    // userData = box.values.first;
+    userData = box.values.first;
 
     if (getUserDetail != null) {
       userDetail = getUserDetail;
@@ -82,16 +86,16 @@ class ProfileController extends GetxController {
   }
 
   logout() async {
-    // await authService.logout();
+    await authService.logout();
     await orderBox.clear();
-    OrderHive orderHive = OrderHive();
-    orderHive.idUser = box.values.first.idUser;
+    // OrderHive orderHive = OrderHive();
+    // orderHive.idUser = box.values.first.idUser;
 
-    await orderBox.add(orderHive);
+    // await orderBox.add(orderHive);
 
-    // await box.clear();
+    await box.clear();
     // Get.delete<FindLocationController>();
-    // Get.offAll(LoginView());
+    Get.offAll(LoginView());
     // Get.offUntil(GetPageRoute(page: () => LoginView()), );
     // Get.to(LoginView());
   }
@@ -251,6 +255,17 @@ class ProfileController extends GetxController {
     box.put(box.keys.first, user);
   }
 
+  setSelectedLanguage() {
+    selectedLanguage = languageBox.get("country_id");
+  }
+
+  updateLanguage(String countryId) {
+    languageBox.put("country_id", countryId);
+    selectedLanguage = countryId;
+    Get.updateLocale(Locale(countryId));
+    update();
+  }
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -258,5 +273,6 @@ class ProfileController extends GetxController {
     setUserData();
     initPackageInfo();
     initPlatformState();
+    setSelectedLanguage();
   }
 }

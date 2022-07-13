@@ -39,8 +39,8 @@ class DetailMenuView extends GetView<MenuController> {
                     )
                   : Container(),
               appBar: AppBarComponents(
-                  title: 'Detail Menu',
-                ),
+                title: 'Detail Menu',
+              ),
               body: SafeArea(
                 child: LayoutBuilder(builder:
                     (BuildContext context, BoxConstraints constraints) {
@@ -118,7 +118,7 @@ class DetailMenuView extends GetView<MenuController> {
                                             Text(
                                               value.menuDetailResponse?.data
                                                       ?.menu?.nama ??
-                                                  "Judul Menu",
+                                                  "Title of Menu",
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w700,
                                                 fontSize: 24,
@@ -222,7 +222,7 @@ class DetailMenuView extends GetView<MenuController> {
                                                   width: 8,
                                                 ),
                                                 Text(
-                                                  "Harga",
+                                                  "price".tr,
                                                   style: TextStyle(
                                                     fontSize: 20,
                                                     fontWeight: FontWeight.w600,
@@ -358,7 +358,7 @@ class DetailMenuView extends GetView<MenuController> {
                                                               width: 8,
                                                             ),
                                                             Text(
-                                                              "Toping",
+                                                              "Topping",
                                                               style: TextStyle(
                                                                 fontSize: 20,
                                                                 fontWeight:
@@ -430,7 +430,7 @@ class DetailMenuView extends GetView<MenuController> {
                                                     width: 8,
                                                   ),
                                                   Text(
-                                                    "Catatan",
+                                                    "note".tr,
                                                     style: TextStyle(
                                                       fontSize: 20,
                                                       fontWeight:
@@ -486,7 +486,7 @@ class DetailMenuView extends GetView<MenuController> {
                                             value.addMenu();
                                           },
                                           child: ButtonComponents(
-                                            buttonTitle: "Tambahkan Ke Pesanan",
+                                            buttonTitle: "add_to_cart".tr,
                                           ),
                                         )
                                       ],
@@ -542,7 +542,7 @@ class DetailMenuView extends GetView<MenuController> {
                           height: 12,
                         ),
                         Text(
-                          "Pilih Toping",
+                          "choose_topping".tr,
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 24,
@@ -625,7 +625,7 @@ class DetailMenuView extends GetView<MenuController> {
                           height: 12,
                         ),
                         Text(
-                          "Pilih Level",
+                          "choose_level".tr,
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 24,
@@ -748,7 +748,7 @@ class DetailMenuView extends GetView<MenuController> {
                           height: 12,
                         ),
                         Text(
-                          "Buat Catatan",
+                          "make_note".tr,
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 24,
@@ -766,7 +766,7 @@ class DetailMenuView extends GetView<MenuController> {
                             LengthLimitingTextInputFormatter(100),
                           ],
                           decoration: InputDecoration(
-                              hintText: "Jangan dibuat pedas, dll",
+                              hintText: "note_example".tr,
                               suffixIcon: Icon(Icons.check_circle_rounded)),
                         ),
                         SizedBox(

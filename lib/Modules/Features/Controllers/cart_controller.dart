@@ -218,8 +218,12 @@ class CartController extends GetxController {
       tempOrderHive.idUser = userBox.values.first.idUser;
       orderBox.put(orderBox.keys.first, tempOrderHive);
       idOfNewOrder = requestOrder.dataOrder?.idOrder ?? 0;
-      Get.snackbar("Berhasil memesan menu",
-          "Berhasil memesan ${requestFix.menu?.length ?? 0} menu dengan harga Rp ${requestFix.totalBayar}");
+      Get.snackbar(
+          "order_menu_success_title".tr,
+          "order_menu_success_message".trParams({
+            'length': '${requestFix.menu?.length ?? 0}',
+            'totalBayar': ' ${requestFix.totalBayar}'
+          }));
       // Get.close(1);
     } else {
       // OrderHive tempOrderHive = orderBox.values.first;

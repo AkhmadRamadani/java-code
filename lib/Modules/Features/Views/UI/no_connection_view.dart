@@ -39,8 +39,8 @@ class NoConnection extends GetView<MainController> {
                         SizedBox(
                           height: 12,
                         ),
-                        const Text(
-                          "No Connection!",
+                        Text(
+                          'no_connection_title'.tr,
                           style: TextStyle(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
@@ -49,8 +49,8 @@ class NoConnection extends GetView<MainController> {
                         SizedBox(
                           height: 12,
                         ),
-                        const Text(
-                          "Your internet is down, check the router, airplane mode or other connectivities",
+                        Text(
+                          "no_connection_message".tr,
                           style: TextStyle(
                             fontSize: 20,
                           ),
@@ -64,7 +64,7 @@ class NoConnection extends GetView<MainController> {
                             mainController.checkConnection();
                           },
                           child: ButtonComponents(
-                            buttonTitle: "Reconnect",
+                            buttonTitle: "reconnect".tr,
                           ),
                         )
                       ],

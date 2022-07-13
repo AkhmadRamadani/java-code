@@ -78,7 +78,7 @@ class PromoDetailView extends GetView<PromoController> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Nama Promo",
+                                    "promo_name".tr,
                                     style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 18,
@@ -89,7 +89,7 @@ class PromoDetailView extends GetView<PromoController> {
                                     height: 10,
                                   ),
                                   Text(
-                                    promo.nama ?? "Nama Promo",
+                                    promo.nama ?? "promo_name".tr,
                                     style: TextStyle(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 24,
@@ -119,7 +119,7 @@ class PromoDetailView extends GetView<PromoController> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                "Syarat dan Ketentuan",
+                                                "terms_and_conditions".tr,
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w600,
                                                   fontSize: 18,

@@ -63,7 +63,7 @@ class VoucherDetailView extends GetView<VoucherController> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    value.detailVoucher?.nama ?? "Nama Promo",
+                                    value.detailVoucher?.nama ?? "Title of Voucher",
                                     style: TextStyle(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 24,
@@ -165,7 +165,7 @@ class VoucherDetailView extends GetView<VoucherController> {
                               ),
                               alignment: Alignment.center,
                               child: Text(
-                                "Pakai Voucher",
+                                "use_voucher".tr,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w600,

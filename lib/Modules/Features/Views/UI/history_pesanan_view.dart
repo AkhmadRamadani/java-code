@@ -49,8 +49,8 @@ class HistoryPesananView extends GetView<HistoryPesananController> {
                       indicatorSize: TabBarIndicatorSize.label,
                       unselectedLabelColor: colorConst.textColor,
                       tabs: [
-                        Text("Sedang Berjalan"),
-                        Text("Riwayat"),
+                        Text("underway".tr),
+                        Text("history".tr),
                       ],
                     )),
               ),
@@ -91,10 +91,10 @@ class HistoryPesananView extends GetView<HistoryPesananController> {
                                 },
                               )
                             : EmptyStateComponents(
-                                text: "Sudah Pesan?\nLacak pesananmu di sini.",
+                                text: "empty_history".tr,
                               )
                         : EmptyStateComponents(
-                            text: "Sudah Pesan?\nLacak pesananmu di sini.",
+                            text: "empty_history".tr,
                           ),
                 value.isLoading.isTrue
                     ? Shimmer.fromColors(
@@ -240,7 +240,7 @@ class HistoryPesananView extends GetView<HistoryPesananController> {
                                     )
                                   : EmptyStateComponents(
                                       text:
-                                          "Mulai buat pesanan.\nMakanan yang kamu pesan akan muncul di sini agar kamu bisa menemukan menu favoritmu lagi!",
+                                          "empty_history_order".tr,
                                     ),
                             ],
                           ),
