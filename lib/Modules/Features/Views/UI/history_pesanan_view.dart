@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:javacode/Constant/Core/assets_const.dart';
 import 'package:javacode/Constant/Core/colors_const.dart';
 import 'package:javacode/Modules/Features/Controllers/history_pesanan_controller.dart';
+import 'package:javacode/Modules/Features/Views/Components/empty_state_components.dart';
 import 'package:javacode/Modules/Features/Views/Components/order_history_components.dart';
 import 'package:javacode/Modules/Features/Views/Components/riwayat_order_components.dart';
 import 'package:javacode/Modules/Features/Views/UI/pesanan_tracking_view.dart';
@@ -72,19 +73,29 @@ class HistoryPesananView extends GetView<HistoryPesananController> {
                                   borderRadius: BorderRadius.circular(25)));
                         }),
                       )
-                    : ListView.builder(
-                        itemCount: value.order?.order?.length ?? 0,
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: () {
-                              Get.to(PesananTrackingView(
-                                  id: value.order!.order![index].idOrder!));
-                            },
-                            child: OrderHistoryCardComponents(
-                                menuHistory: value.order!.order![index]),
-                          );
-                        },
-                      ),
+                    : value.order != null
+                        ? value.order!.order!.length > 0
+                            ? ListView.builder(
+                                itemCount: value.order?.order?.length ?? 0,
+                                itemBuilder: (context, index) {
+                                  return InkWell(
+                                    onTap: () {
+                                      Get.to(PesananTrackingView(
+                                          id: value
+                                              .order!.order![index].idOrder!));
+                                    },
+                                    child: OrderHistoryCardComponents(
+                                        menuHistory:
+                                            value.order!.order![index]),
+                                  );
+                                },
+                              )
+                            : EmptyStateComponents(
+                                text: "Sudah Pesan?\nLacak pesananmu di sini.",
+                              )
+                        : EmptyStateComponents(
+                            text: "Sudah Pesan?\nLacak pesananmu di sini.",
+                          ),
                 value.isLoading.isTrue
                     ? Shimmer.fromColors(
                         baseColor: Colors.grey[300]!,
@@ -200,30 +211,37 @@ class HistoryPesananView extends GetView<HistoryPesananController> {
                                   ],
                                 ),
                               ),
-                              ListView.builder(
-                                physics: NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount:
-                                    value.listHistoryOrderFilterred.length,
-                                itemBuilder: (context, index) {
-                                  return InkWell(
-                                    onTap: () {
-                                      Get.to(PesananTrackingView(
-                                          id: value
-                                              .listHistoryOrderFilterred[index]
-                                              .idOrder!));
-                                    },
-                                    child: RiwayatOrderComponents(
-                                        pesanLagi: () {
-                                          value.pesanLagiFunction(
-                                              value.listHistoryOrderFilterred[
-                                                  index]);
-                                        },
-                                        menuHistory: value
-                                            .listHistoryOrderFilterred[index]),
-                                  );
-                                },
-                              ),
+                              value.listHistoryOrderFilterred.length > 0
+                                  ? ListView.builder(
+                                      physics: NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: value
+                                          .listHistoryOrderFilterred.length,
+                                      itemBuilder: (context, index) {
+                                        return InkWell(
+                                          onTap: () {
+                                            Get.to(PesananTrackingView(
+                                                id: value
+                                                    .listHistoryOrderFilterred[
+                                                        index]
+                                                    .idOrder!));
+                                          },
+                                          child: RiwayatOrderComponents(
+                                              pesanLagi: () {
+                                                value.pesanLagiFunction(value
+                                                        .listHistoryOrderFilterred[
+                                                    index]);
+                                              },
+                                              menuHistory: value
+                                                      .listHistoryOrderFilterred[
+                                                  index]),
+                                        );
+                                      },
+                                    )
+                                  : EmptyStateComponents(
+                                      text:
+                                          "Mulai buat pesanan.\nMakanan yang kamu pesan akan muncul di sini agar kamu bisa menemukan menu favoritmu lagi!",
+                                    ),
                             ],
                           ),
                         ),

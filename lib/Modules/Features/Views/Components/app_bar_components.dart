@@ -4,13 +4,20 @@ import 'package:javacode/Constant/Core/assets_const.dart';
 import 'package:javacode/Constant/Core/colors_const.dart';
 
 class AppBarComponents extends StatelessWidget implements PreferredSizeWidget {
-  AppBarComponents({Key? key, this.title, this.icon, this.backPressed}) : super(key: key);
+  AppBarComponents(
+      {Key? key,
+      this.title,
+      this.icon,
+      this.backPressed,
+      this.showBackPress = true})
+      : super(key: key);
 
   final AssetsConst assetsConst = AssetsConst();
   final ColorConst colorConst = ColorConst();
   String? title;
   IconData? icon;
   Function? backPressed;
+  bool showBackPress;
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -20,15 +27,17 @@ class AppBarComponents extends StatelessWidget implements PreferredSizeWidget {
           bottom: Radius.circular(30),
         ),
       ),
-      leading: InkWell(
-        onTap: () {
-          backPressed != null ? backPressed!() : Get.back();
-        },
-        child: Icon(
-          Icons.arrow_back_ios_new_rounded,
-          color: colorConst.textColor,
-        ),
-      ),
+      leading: showBackPress
+          ? InkWell(
+              onTap: () {
+                backPressed != null ? backPressed!() : Get.back();
+              },
+              child: Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: colorConst.textColor,
+              ),
+            )
+          : Container(),
       centerTitle: true,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.center,

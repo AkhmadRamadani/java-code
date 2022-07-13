@@ -55,6 +55,11 @@ dependencies:
   flutter_svg: ^1.1.0
   local_auth: ^2.1.0
   pin_code_fields: ^7.4.0
+  device_info_plus: ^4.0.0
+  image_cropper: ^2.0.3
+  image_picker: ^0.8.5+3
+  package_info_plus: ^1.4.2
+  flutter_image_compress: ^1.1.0
 
 dev_dependencies:
   flutter_test:

@@ -20,6 +20,12 @@ class AssetsConst {
   String topingIconBlue = "toping_icon_blue.png";
   String loadingLocation = "loading_location.json";
   String orderSukses = "pesanan_disiapkan_image.png";
+  String historyKosongIconBlue = "history_kosong_icon_blue.png";
+  String circleProfileIcon = "circle_profile_icon.png";
+  String bubbleRatingIcon = "bubble_rating_icon.png";
+  String identityIconBlue = "identity_icon_blue.png";
+  String indonesiaFlag = "indonesia_flag.png";
+  String ukFlag = "uk_flag.png";
 
 }
 

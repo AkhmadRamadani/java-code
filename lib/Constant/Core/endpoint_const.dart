@@ -1,11 +1,14 @@
-class EndPointConst{
+class EndPointConst {
   String login = "auth/login";
   String logout = "auth/logout";
 
-  String getPromoList = "promo/all"; 
-  String getMenuList = "menu/all"; 
-  String getMenuDetail = "menu/detail/"; 
-  String getMyDiskon = "diskon/user/"; 
+  String getPromoList = "promo/all";
+
+  String getMenuList = "menu/all";
+  String getMenuDetail = "menu/detail/";
+
+  String getMyDiskon = "diskon/user/";
+
   String getMyVoucher = "voucher/user/";
   String getAllVoucher = "voucher/all";
 
@@ -14,4 +17,9 @@ class EndPointConst{
   String addOrder = "order/add";
   String getOrderDetal = "order/detail/";
   String getHistoryOrder = 'order/history/';
+
+  String getUserDetail = "user/detail/";
+  String postUpdateUser = "user/update/";
+  String postUpdateProfile = "user/profil/";
+  String postUpdateKTP = "user/ktp/";
 }
