@@ -21,7 +21,7 @@ class PromoService extends NetworkService {
     final response = await get(
         link,
         headers: headers);
-    print(response.body);
+    // print(response.body);
     if (response.body['status_code'] == 200) {
       PromoDetailResponse promoResponse =
           PromoDetailResponse.fromJson(response.body);

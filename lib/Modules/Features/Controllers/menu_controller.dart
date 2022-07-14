@@ -77,7 +77,7 @@ class MenuController extends GetxController {
         (menuHive.jumlah! * menuHive.hargaLevel!) +
         (menuHive.jumlah! * menuHive.totalHargaTopping!);
 
-    print("harga" + menuHive.harga.toString());
+    // print("harga" + menuHive.harga.toString());
   }
 
   String getToppingName(List<String?> data) {
@@ -142,11 +142,11 @@ class MenuController extends GetxController {
   }
 
   void addMenu() {
-    // print(orderBox.values.length.toString());
+    // // print(orderBox.values.length.toString());
     OrderHive tempOrderHive = orderBox.values.first;
     tempOrderHive.menu!.add(menuHive);
     tempOrderHive.totalBayar = tempOrderHive.totalBayar! + menuHive.harga!;
-    print("harga Fix" + menuHive.harga.toString());
+    // print("harga Fix" + menuHive.harga.toString());
     orderBox.put(orderBox.keys.first, tempOrderHive);
     Get.snackbar(
         "success_add_menu".tr,
@@ -155,7 +155,7 @@ class MenuController extends GetxController {
             menuHive.nama +
             " Rp. " +
             menuHive.harga.toString());
-    print(orderBox.values.first.menu!.length.toString());
+    // print(orderBox.values.first.menu!.length.toString());
     menuHive = MenuHive();
     menuHive.nama = menu.nama ?? "";
     menuHive.gambar = menu.foto ?? "";

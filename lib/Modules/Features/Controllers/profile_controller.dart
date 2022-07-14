@@ -162,8 +162,8 @@ class ProfileController extends GetxController {
       rotate: 180,
     );
 
-    // print(file.lengthSync());
-    // print(result.lengthSync());
+    // // print(file.lengthSync());
+    // // print(result.lengthSync());
 
     return result!;
   }
@@ -267,6 +267,9 @@ class ProfileController extends GetxController {
 
   setSelectedLanguage() {
     selectedLanguage = languageBox.get("country_id");
+    if(selectedLanguage == null){
+      languageBox.put("country_id", Get.deviceLocale?.languageCode ?? "en");
+    }
   }
 
   updateLanguage(String countryId) {

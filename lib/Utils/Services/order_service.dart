@@ -14,7 +14,7 @@ class OrderService extends NetworkService {
     final response = await get(
         super.baseUrlConst.baseUrl + super.endPointConst.getOrderByUser + "1",
         headers: headers);
-    print(response.body);
+    // print(response.body);
     if (response.body['status_code'] == 200) {
       GetOrderResponse orderResponse = GetOrderResponse.fromJson(response.body);
       return orderResponse;
@@ -31,7 +31,7 @@ class OrderService extends NetworkService {
             super.endPointConst.getOrderByUser +
             super.box.values.first.idUser.toString(),
         headers: headers);
-    print(response.body);
+    // print(response.body);
     if (response.body['status_code'] == 200) {
       GetOrderResponse orderResponse = GetOrderResponse.fromJson(response.body);
       return orderResponse;
@@ -49,7 +49,7 @@ class OrderService extends NetworkService {
             super.box.values.first.idUser.toString(),
         jsonEncode(<String, dynamic>{}),
         headers: headers);
-    print(response.body);
+    // print(response.body);
     if (response.body['status_code'] == 200) {
       GetHistoryOrderResponse orderResponse =
           GetHistoryOrderResponse.fromJson(response.body);
@@ -65,7 +65,7 @@ class OrderService extends NetworkService {
     final response = await get(
         super.baseUrlConst.baseUrl + super.endPointConst.getOrderDetal + id,
         headers: headers);
-    print(response.body);
+    // print(response.body);
     if (response.body['status_code'] == 200) {
       GetOrderDetailResponse detailOrderResponse =
           GetOrderDetailResponse.fromJson(response.body);
@@ -103,7 +103,7 @@ class OrderService extends NetworkService {
         }),
         headers: headers);
 
-    print(response.body);
+    // print(response.body);
     if (response.body['status_code'] == 200) {
       AddOrderResponse addOrderResponse =
           AddOrderResponse.fromJson(response.body);
@@ -143,7 +143,7 @@ class OrderService extends NetworkService {
         }),
         headers: headers);
 
-    print(response.body);
+    // print(response.body);
     if (response.body['status_code'] == 200) {
       AddOrderResponse addOrderResponse =
           AddOrderResponse.fromJson(response.body);

@@ -12,7 +12,7 @@ class UserService extends NetworkService {
             super.endPointConst.getUserDetail +
             super.box.values.first.idUser.toString(),
         headers: headers);
-    print(response.body);
+    // print(response.body);
     if (response.isOk) {
       if (response.body['status_code'] == 200) {
         GetUserDetail userDetailResponse =
@@ -47,7 +47,7 @@ class UserService extends NetworkService {
         jsonEncode(userInfo),
         headers: headers);
 
-    print(response.body);
+    // print(response.body);
     if (response.isOk) {
       if (response.body['status_code'] == 200) {
         GetUserDetail userDetailResponse =
@@ -68,8 +68,8 @@ class UserService extends NetworkService {
       'token': super.box.values.first.token ?? "",
       "Content-Type": "application/json"
     };
-    print("key " + key);
-    print("value " + value);
+    // print("key " + key);
+    // print("value " + value);
     // Map<String, dynamic> userInfo = <String, dynamic>{
     //   key: value,
     // };
@@ -81,7 +81,7 @@ class UserService extends NetworkService {
         jsonEncode(<String, dynamic>{key: value}),
         headers: headers);
 
-    print(response.body);
+    // print(response.body);
     if (response.isOk) {
       if (response.body['status_code'] == 200) {
         GetUserDetail userDetailResponse =
@@ -102,8 +102,8 @@ class UserService extends NetworkService {
       'token': super.box.values.first.token ?? "",
       "Content-Type": "application/json"
     };
-    print("key " + key);
-    print("value " + value);
+    // print("key " + key);
+    // print("value " + value);
     // Map<String, dynamic> userInfo = <String, dynamic>{
     //   key: value,
     // };
@@ -115,7 +115,7 @@ class UserService extends NetworkService {
         jsonEncode(<String, dynamic>{key: value}),
         headers: headers);
 
-    print(response.body);
+    // print(response.body);
     if (response.isOk) {
       if (response.body['status_code'] == 200) {
         GetUserDetail userDetailResponse =
@@ -136,8 +136,8 @@ class UserService extends NetworkService {
       'token': super.box.values.first.token ?? "",
       "Content-Type": "application/json"
     };
-    print("key " + key);
-    print("value " + value);
+    // print("key " + key);
+    // print("value " + value);
     // Map<String, dynamic> userInfo = <String, dynamic>{
     //   key: value,
     // };
@@ -149,7 +149,7 @@ class UserService extends NetworkService {
         jsonEncode(<String, dynamic>{key: value}),
         headers: headers);
 
-    print(response.body);
+    // print(response.body);
     if (response.isOk) {
       if (response.body['status_code'] == 200) {
         GetUserDetail userDetailResponse =

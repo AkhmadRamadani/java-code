@@ -9,7 +9,7 @@ class DiskonService extends NetworkService {
             super.endPointConst.getMyDiskon +
             super.box.values.first.idUser.toString(),
         headers: headers);
-    print(response.body);
+    // print(response.body);
     if (response.body['status_code'] == 200) {
       GetDiskonResponse diskonResponse =
           GetDiskonResponse.fromJson(response.body);

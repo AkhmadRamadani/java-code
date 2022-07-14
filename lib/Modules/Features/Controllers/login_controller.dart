@@ -25,13 +25,13 @@ class LoginController extends GetxController {
   }
 
   showPassword() {
-    print("show pass");
+    // print("show pass");
     isPasswordShowed = true.obs;
     update();
   }
 
   unShowPassword() {
-    print("unshow pass");
+    // print("unshow pass");
 
     isPasswordShowed = false.obs;
     update();

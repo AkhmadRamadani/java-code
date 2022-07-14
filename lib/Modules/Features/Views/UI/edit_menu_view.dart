@@ -24,9 +24,9 @@ class EditMenuView extends GetView<EditMenuController> {
             onWillPop: () async {
               CartController cartController = Get.find();
               if(value.isUpdated == false){
-                print('here');
+                // print('here');
                 value.orderBox.values.first.menu![index] = value.tempMenuHive; 
-                print(value.tempMenuHive.jumlah.toString());
+                // print(value.tempMenuHive.jumlah.toString());
               }
               cartController.update();
               // value.orderBox.

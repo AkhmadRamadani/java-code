@@ -813,7 +813,7 @@ class ProfileView extends GetView<ProfileController> {
                   Row(
                     children: [
                       Text(
-                        controller.selectedLanguage!.toUpperCase(),
+                        controller.selectedLanguage?.toUpperCase() ?? "EN",
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
@@ -903,10 +903,6 @@ class ProfileView extends GetView<ProfileController> {
                                 }).then((selectedDate) {
                                 //TODO: handle selected date
                                 if (selectedDate != null) {
-                                  print('selected date' +
-                                      formatter
-                                          .format(selectedDate)
-                                          .toString());
                                   textEditingController.text =
                                       formatter.format(selectedDate).toString();
                                   savedValue =

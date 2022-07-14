@@ -81,7 +81,7 @@ class HistoryPesananController extends GetxController
     await getHistoryOrder();
     await getListOrderOnTracking();
 
-    print("panjang " + listHistoryOrderFilterred.length.toString());
+    // print("panjang " + listHistoryOrderFilterred.length.toString());
     isLoading = false.obs;
     update();
   }
@@ -168,7 +168,7 @@ class HistoryPesananController extends GetxController
     // if (selectedDateRange == null) {
     listHistoryOrderFilterred.clear();
     // }
-    print(data);
+    // print(data);
     selectedDropdownItem = data;
 
     switch (data) {
@@ -190,26 +190,26 @@ class HistoryPesananController extends GetxController
     }
 
     // listHistoryOrderData.forEach((Order data) {
-    //   print("here");
+    //   // print("here");
     //   if (selectedDropdownItem == 'Selesai') {
-    //     print("true selesai");
+    //     // print("true selesai");
     //     if (data.status == 3) {
     //       listHistoryOrderFilterred.add(data);
     //     }
     //   } else if (selectedDropdownItem == 'Dibatalkan') {
-    //     print("true batal");
+    //     // print("true batal");
 
     //     if (data.status == 4) {
     //       listHistoryOrderFilterred.add(data);
     //     }
     //   } else {
-    //     print("true semua");
+    //     // print("true semua");
 
     //     listHistoryOrderFilterred.add(data);
     //   }
     //   // update();
     // });
-    print("panjang " + listHistoryOrderFilterred.length.toString());
+    // print("panjang " + listHistoryOrderFilterred.length.toString());
 
     update();
   }

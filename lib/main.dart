@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     selectedLanguage = languageBox.get("country_id");
-
+  
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       locale: selectedLanguage != null

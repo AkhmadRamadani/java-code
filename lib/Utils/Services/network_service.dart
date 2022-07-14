@@ -19,7 +19,7 @@ class NetworkService extends GetConnect {
     httpClient.defaultContentType = "application/json";
     httpClient.timeout = const Duration(seconds: 8);
     httpClient.addResponseModifier((request, response) async {
-      print(response.body);
+      // print(response.body);
     });
 
     Map<String, String> headers = {'token': box.values.first.token ?? ""};

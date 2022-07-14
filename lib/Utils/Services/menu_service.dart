@@ -8,7 +8,7 @@ class MenuService extends NetworkService {
     final response = await get(
         super.baseUrlConst.baseUrl + super.endPointConst.getMenuList,
         headers: headers);
-    print(response.body);
+    // print(response.body);
     if (response.body['status_code'] == 200) {
       GetMenuResponse promoResponse = GetMenuResponse.fromJson(response.body);
       return promoResponse;
@@ -21,7 +21,7 @@ class MenuService extends NetworkService {
     final response = await get(
         super.baseUrlConst.baseUrl + super.endPointConst.getMenuDetail + id.toString(),
         headers: headers);
-    print(response.body);
+    // print(response.body);
     if (response.body['status_code'] == 200) {
       MenuDetailResponse detailResponse = MenuDetailResponse.fromJson(response.body);
       return detailResponse;

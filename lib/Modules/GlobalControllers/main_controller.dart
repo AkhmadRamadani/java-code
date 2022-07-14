@@ -20,12 +20,14 @@ import 'package:simple_connection_checker/simple_connection_checker.dart';
 class MainController extends GetxController {
   RxBool isLoading = false.obs;
   PromoService promoService = PromoService();
+  var languageBox = Hive.box("selected_language");
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
     checkConnection();
+    cekLanguage();
     // initUniLinks();
   }
 
@@ -41,7 +43,7 @@ class MainController extends GetxController {
         }
       }
     } on PlatformException {
-      // print('')
+      // // print('')
       return;
     }
   }
@@ -62,14 +64,14 @@ class MainController extends GetxController {
     var orderBox = Hive.box<OrderHive>('order');
 
     if (box.values.isNotEmpty) {
-      print(box.values.first.token ?? "kosong token");
+      // print(box.values.first.token ?? "kosong token");
       if (orderBox.values.isEmpty) {
         OrderHive orderHive = OrderHive();
         orderHive.idUser = box.values.first.idUser!;
 
         await orderBox.add(orderHive);
       } else {
-        print("keys " + orderBox.keys.first.toString());
+        // print("keys " + orderBox.keys.first.toString());
       }
       final initialLink = await getInitialLink();
       // Parse the link and warn the user, if it is not correct,
@@ -79,12 +81,21 @@ class MainController extends GetxController {
           getPromoDetail(initialLink);
         }
       } else {
-        print("initial link null");
+        // print("initial link null");
         Get.offAll(FindLocationView());
       }
     } else {
       Get.offAll(LoginView());
     }
+  }
+
+  Future<void> cekLanguage() async {
+    String? selectedLanguage = languageBox.get("country_id");
+    if (selectedLanguage == null) {
+      languageBox.put("country_id", Get.deviceLocale?.languageCode ?? "en");
+      return;
+    }
+    return;
   }
 
   Future<void> checkConnection() async {
@@ -96,14 +107,14 @@ class MainController extends GetxController {
       case true:
         isLoading = false.obs;
         update();
-        print('Data connection is available.');
-        checkUserLogin();
         // print('Data connection is available.');
+        checkUserLogin();
+        // // print('Data connection is available.');
         break;
       case false:
         isLoading = false.obs;
         update();
-        print('You are disconnected from the internet.');
+        // print('You are disconnected from the internet.');
 
         // checkUserLogin();
 

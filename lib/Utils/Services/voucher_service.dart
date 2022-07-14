@@ -9,7 +9,7 @@ class VoucherService extends NetworkService{
             super.endPointConst.getAllVoucher,
             // super.box.values.first.idUser.toString(),
         headers: headers);
-    print(response.body);
+    // print(response.body);
     if (response.body['status_code'] == 200) {
       GetMyVoucherResponse myVoucherResponse =
           GetMyVoucherResponse.fromJson(response.body);

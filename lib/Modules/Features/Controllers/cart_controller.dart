@@ -88,7 +88,7 @@ class CartController extends GetxController {
         ),
       );
     } on PlatformException catch (e) {
-      print(e);
+      // print(e);
 
       return;
     }
@@ -103,7 +103,7 @@ class CartController extends GetxController {
     // });
 
     if (authenticated) {
-      print("true auth");
+      // print("true auth");
       Get.close(1);
       isLoading = true.obs;
       update();
@@ -112,7 +112,7 @@ class CartController extends GetxController {
       isLoading = false.obs;
       // checkout();
     } else {
-      print("false auth");
+      // print("false auth");
     }
   }
 
@@ -181,9 +181,9 @@ class CartController extends GetxController {
     orderHive.menu![index].harga = menuHargaBaru;
     update();
     orderHive.menu![index] = menuHive;
-    print("old harga " + menuHive.jumlah.toString());
-    print("new harga " + orderHive.menu![index].jumlah.toString());
-    print(orderHive.totalBayar.toString());
+    // print("old harga " + menuHive.jumlah.toString());
+    // print("new harga " + orderHive.menu![index].jumlah.toString());
+    // print(orderHive.totalBayar.toString());
     orderBox.put(orderBox.keys.first, orderHive);
     update();
   }
