@@ -1,7 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:javacode/Modules/Features/Views/UI/find_location_view.dart';
 import 'dart:async';
 
@@ -13,6 +14,8 @@ import 'package:javacode/Modules/Models/promo_detail_response_model.dart';
 import 'package:javacode/Modules/Models/Hive/user_hive_model.dart';
 import 'package:javacode/Utils/Services/promo_service.dart';
 import 'package:uni_links/uni_links.dart';
+
+import 'package:simple_connection_checker/simple_connection_checker.dart';
 
 class MainController extends GetxController {
   RxBool isLoading = false.obs;
@@ -65,7 +68,7 @@ class MainController extends GetxController {
         orderHive.idUser = box.values.first.idUser!;
 
         await orderBox.add(orderHive);
-      }else{
+      } else {
         print("keys " + orderBox.keys.first.toString());
       }
       final initialLink = await getInitialLink();
@@ -84,28 +87,35 @@ class MainController extends GetxController {
     }
   }
 
-  Future<bool> checkConnection() async {
+  Future<void> checkConnection() async {
     isLoading = true.obs;
     update();
-    // Simple check to see if we have internet
-    print("The statement 'this machine is connected to the Internet' is: ");
-    print(await InternetConnectionChecker().hasConnection);
-    // returns a bool
-    bool isHaveConnection = await InternetConnectionChecker().hasConnection;
+    bool _isConnected = await SimpleConnectionChecker.isConnectedToInternet();
+    // var listener = InternetConnectionChecker().onStatusChange.listen((status) {
+    switch (_isConnected) {
+      case true:
+        isLoading = false.obs;
+        update();
+        print('Data connection is available.');
+        checkUserLogin();
+        // print('Data connection is available.');
+        break;
+      case false:
+        isLoading = false.obs;
+        update();
+        print('You are disconnected from the internet.');
 
-    if (isHaveConnection) {
-      isLoading = false.obs;
-      update();
-      print('Data connection is available.');
-      checkUserLogin();
-    } else {
-      isLoading = false.obs;
-      update();
-      print('You are disconnected from the internet.');
-      checkUserLogin();
-      
-      // Get.offAll(NoConnection());
+        // checkUserLogin();
+
+        Get.offAll(NoConnection());
+        break;
     }
-    return await InternetConnectionChecker().hasConnection;
+  }
+
+  @override
+  void onClose() {
+    // TODO: implement onClose
+    // listener.cancel();
+    super.onClose();
   }
 }

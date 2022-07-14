@@ -38,29 +38,25 @@ class ButtonComponents extends StatelessWidget {
             ),
             alignment: Alignment.center,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
-                  flex: 1,
-                  child: Center(
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        height: 20,
-                        child: SvgPicture.asset(iconPath ??
-                            assetsConst.svgPath + assetsConst.googleIcons),
-                      ),
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      height: 20,
+                      child: SvgPicture.asset(iconPath ??
+                          assetsConst.svgPath + assetsConst.googleIcons),
                     ),
                   ),
                 ),
-                Expanded(
-                  flex: 3,
-                  child: Text(
-                    buttonTitle ?? "Title",
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: textColor ?? colorConst.textColor,
-                        fontWeight: FontWeight.bold),
-                  ),
+                Text(
+                  buttonTitle ?? "Title",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: textColor ?? colorConst.textColor,
+                      fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -75,6 +71,7 @@ class ButtonComponents extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               buttonTitle ?? "Title",
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
                 color: textColor ?? Colors.white,

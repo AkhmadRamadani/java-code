@@ -86,7 +86,6 @@ class LocaleString extends Translations {
           'you_can_take_it': 'Your order is ready to be picked up',
           'order_is_done': 'Your order is done',
           'use_voucher': 'Use Voucher',
-          'in_queue': 'In Queue',
           'give_rating': 'Give Rate',
           'cant_edit_email_title': 'Can not edit email',
           'cant_edit_email_message':
@@ -108,7 +107,18 @@ class LocaleString extends Translations {
           'success_add_menu': 'Success to add',
           'email_didnt_registered': 'Your email was not registered yet',
           'update_profile_error_title': 'Profile update is error',
-          'update_profile_error_message': 'There is something wrong went update the profile',
+          'update_profile_error_message':
+              'There is something wrong went update the profile',
+          'logout_gagal': 'Log out failed',
+          'logout_gagal_message': 'Log out is not successful',
+          'in_queue': 'In Queue',
+          'prepared': 'Prepared',
+          'already_to_pick': 'Already to Pick',
+          'done': 'Done',
+          'canceled': 'Canceled', 
+          'order_again': 'Re-order', 
+          'all_status': 'All Status',
+          're_order_asking': 'Re-order this menu?'
         },
         'id_ID': {
           'hello': 'Halo Dunia',
@@ -193,7 +203,6 @@ class LocaleString extends Translations {
           'you_can_take_it': 'Silakan diambil',
           'order_is_done': 'Pesanan Selesai',
           'use_voucher': 'Pakai Voucher',
-          'in_queue': 'Dalam Antrian',
           'give_rating': 'Beri Penilaian',
           'cant_edit_email_title': 'Tidak bisa mengedit email',
           'cant_edit_email_message':
@@ -216,6 +225,16 @@ class LocaleString extends Translations {
           'email_didnt_registered': 'Email anda belum terdaftar',
           'update_profile_error_title': 'Update Profil Gagal',
           'update_profile_error_message': 'Ada kesalahan saat update profil',
+          'logout_gagal': 'Log out gagal',
+          'logout_gagal_message': 'Log out tidak berhasil',
+          'in_queue': 'Dalam Antrian',
+          'prepared': 'Disiapkan',
+          'already_to_pick': 'Siap Diambil',
+          'done': 'Selesai',
+          'canceled': 'Dibatalkan', 
+          'order_again': 'Pesan Lagi', 
+          'all_status': 'Semua Status',
+          're_order_asking': 'Pesan Lagi Menu Ini?'
         }
       };
 }

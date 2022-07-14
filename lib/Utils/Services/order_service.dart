@@ -44,7 +44,9 @@ class OrderService extends NetworkService {
     Map<String, String> headers = {'token': super.box.values.first.token ?? ""};
 
     final response = await post(
-        super.baseUrlConst.baseUrl + super.endPointConst.getHistoryOrder + '1',
+        super.baseUrlConst.baseUrl +
+            super.endPointConst.getHistoryOrder +
+            super.box.values.first.idUser.toString(),
         jsonEncode(<String, dynamic>{}),
         headers: headers);
     print(response.body);

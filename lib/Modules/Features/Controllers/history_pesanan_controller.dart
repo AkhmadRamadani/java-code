@@ -22,12 +22,12 @@ class HistoryPesananController extends GetxController
   List<Order> listHistoryOrderData = [];
 
   var dropdownItems = [
-    'Semua Status',
-    'Selesai',
-    'Dibatalkan',
+    'all_status'.tr,
+    'done'.tr,
+    'canceled'.tr,
   ];
 
-  var selectedDropdownItem = 'Semua Status';
+  var selectedDropdownItem = 'all_status'.tr;
   @override
   void onInit() {
     // TODO: implement onInit
@@ -52,7 +52,7 @@ class HistoryPesananController extends GetxController
       firstDate: DateTime(2020, 1, 1),
       lastDate: DateTime(2030, 12, 31),
       currentDate: DateTime.now(),
-      saveText: 'Done',
+      saveText: 'done'.tr,
     );
 
     if (result != null) {
@@ -134,7 +134,7 @@ class HistoryPesananController extends GetxController
         context: Get.context!,
         builder: (builder) {
           return AlertDialog(
-            title: Text("Pesan Lagi Menu Ini?"),
+            title: Text("re_order_asking".tr),
             actions: [
               GestureDetector(
                 onTap: () async {
@@ -155,7 +155,7 @@ class HistoryPesananController extends GetxController
                 child: Container(
                   width: 100,
                   child: ButtonComponents(
-                    buttonTitle: "Oke",
+                    buttonTitle: "ok".tr,
                   ),
                 ),
               )
@@ -168,13 +168,20 @@ class HistoryPesananController extends GetxController
     // if (selectedDateRange == null) {
     listHistoryOrderFilterred.clear();
     // }
+    print(data);
     selectedDropdownItem = data;
 
     switch (data) {
       case 'Selesai':
         listHistoryOrderFilterred.addAll(listHistoryOrderFilterredDone);
         break;
+      case 'Done':
+        listHistoryOrderFilterred.addAll(listHistoryOrderFilterredDone);
+        break;
       case 'Dibatalkan':
+        listHistoryOrderFilterred.addAll(listHistoryOrderFilterredBatal);
+        break;
+      case 'Canceled':
         listHistoryOrderFilterred.addAll(listHistoryOrderFilterredBatal);
         break;
       default:

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:javacode/Constant/Core/assets_const.dart';
 import 'package:javacode/Constant/Core/colors_const.dart';
 import 'package:javacode/Modules/Models/menu_response_model.dart';
+import 'package:get/get.dart';
 
 class MenuCardComponents extends StatelessWidget {
   MenuCardComponents({Key? key, required this.menu, required this.onPressed})
@@ -93,7 +94,7 @@ class MenuCardComponents extends StatelessWidget {
                             border: InputBorder.none,
                             isDense: true,
                             prefixIconConstraints: BoxConstraints(maxWidth: 16),
-                            hintText: 'Tambahkan catatan',
+                            hintText: 'add_note'.tr,
                             prefixIcon: Icon(
                               Icons.notes,
                               size: 12,

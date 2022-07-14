@@ -4,7 +4,7 @@ import 'package:javacode/Constant/Core/colors_const.dart';
 import 'package:javacode/Modules/Models/promo_response_model.dart';
 
 import 'package:intl/intl.dart';
-
+import 'package:get/get.dart';
 class PromoComponents extends StatelessWidget {
   PromoComponents({Key? key, required this.data, this.detail = false})
       : super(key: key);
@@ -67,7 +67,7 @@ class PromoComponents extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Diskon",
+                            "discount".tr,
                             style: TextStyle(
                               fontWeight: FontWeight.w800,
                               color: Colors.white,

@@ -61,8 +61,27 @@ class AuthenticationService extends NetworkService {
     }
   }
 
-  Future<void> logout() async {
-    await auth.signOut();
-    await googleSignIn.signOut();
+  Future<bool> logoutFromServer() async {
+    Map<String, String> headers = {'token': super.box.values.first.token ?? ""};
+    final response = await get(
+        super.baseUrlConst.baseUrl + super.endPointConst.logout,
+        headers: headers);
+    print(response.body);
+    if (response.isOk) {
+      if (response.body['status_code'] == 200) {
+        return true;
+      }
+      return false;
+    }
+    return false;
+  }
+
+  Future<bool> logout() async {
+    bool loggedOut = await logoutFromServer();
+    if (loggedOut) {
+      await auth.signOut();
+      await googleSignIn.signOut();
+    }
+    return loggedOut;
   }
 }

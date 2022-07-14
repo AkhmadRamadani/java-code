@@ -86,16 +86,26 @@ class ProfileController extends GetxController {
   }
 
   logout() async {
-    await authService.logout();
-    await orderBox.clear();
-    // OrderHive orderHive = OrderHive();
-    // orderHive.idUser = box.values.first.idUser;
+    isLoading = true.obs;
+    update();
+    bool isLoggedOut = await authService.logout();
+    if (isLoggedOut) {
+      isLoading = false.obs;
+      update();
+      await orderBox.clear();
+      // OrderHive orderHive = OrderHive();
+      // orderHive.idUser = box.values.first.idUser;
 
-    // await orderBox.add(orderHive);
+      // await orderBox.add(orderHive);
 
-    await box.clear();
-    // Get.delete<FindLocationController>();
-    Get.offAll(LoginView());
+      await box.clear();
+      // Get.delete<FindLocationController>();
+      Get.offAll(LoginView());
+    } else {
+      isLoading = false.obs;
+      Get.snackbar("logout_gagal".tr, "logout_gagal_message".tr);
+      update();
+    }
     // Get.offUntil(GetPageRoute(page: () => LoginView()), );
     // Get.to(LoginView());
   }
