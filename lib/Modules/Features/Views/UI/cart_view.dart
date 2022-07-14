@@ -1006,7 +1006,7 @@ class CartView extends GetView<CartController> {
             margin: const EdgeInsets.only(top: 16, bottom: 8),
             child: ElevatedButton(
               onPressed: () {
-                Get.to(PesananTrackingView(id: id));
+                Get.to(PesananTrackingView(id: id, fromOrder: false,));
               },
               child: Text(
                 'ok'.tr,

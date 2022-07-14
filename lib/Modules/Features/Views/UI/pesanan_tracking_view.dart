@@ -10,12 +10,14 @@ import 'package:javacode/Utils/Functions/common_functions.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PesananTrackingView extends GetView<DetailPesananController> {
-  PesananTrackingView({Key? key, required this.id}) : super(key: key);
+  PesananTrackingView({Key? key, required this.id, this.fromOrder = true})
+      : super(key: key);
 
   final AssetsConst assetsConst = AssetsConst();
   final ColorConst colorConst = ColorConst();
   final CommonFunctions commonFunctions = CommonFunctions();
   int id;
+  bool fromOrder;
   @override
   Widget build(BuildContext context) {
     return GetBuilder<DetailPesananController>(
@@ -23,14 +25,22 @@ class PesananTrackingView extends GetView<DetailPesananController> {
         builder: (value) {
           return WillPopScope(
             onWillPop: () async {
-              Get.offAll(MainView());
+              if (fromOrder) {
+                Get.back();
+              } else {
+                Get.offAll(MainView());
+              }
               return true;
             },
             child: Scaffold(
               appBar: AppBarComponents(
                 icon: Icons.notifications_none_rounded,
                 backPressed: () {
-                  Get.offAll(MainView());
+                  if (fromOrder) {
+                    Get.back();
+                  } else {
+                    Get.offAll(MainView());
+                  }
                 },
                 title: 'order'.tr,
               ),
